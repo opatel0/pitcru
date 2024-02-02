@@ -21,13 +21,14 @@ ERD
 
 <details>
 <summary>How we git</summary>
+<h2>Feature Branch Workflow</h2>
 We implement a feature branch workflow, the rules of which include: <br>
 <ul>
 	<li>All development work by a team member will be completed in a descriptively named feature branch</li>
 	<li>Development work will only be added to the main project through branch merge pull requests</li>
 	<li>All discussion and decision making will be tracked in pull request comments</li>
 </ul>
-Instructions for developing a new feature
+<h2>Instructions</h2>
 <ol>
 	<li>
 		<details>
