@@ -75,7 +75,7 @@ We implement a feature branch workflow, the rules of which include: <br>
 		<details>
 			<summary>Submit Pull Request and Notify Reviewers</summary>
 			Run the following <pre>git log</pre>
-			Compare log output to remote branch commit history and ensure the most recent commit IDs match <img src="./media/compare_commits.png" width="500px">
+			Compare log output to remote branch commit history and ensure the most recent commit IDs match <img src="./media/compare_commits.png" width="500px"> <br>
 			If remote repo not up to date, refer to step 5 to stage, commit, and push changes.<br>
 			Once local and remote branches are sync'd, submit pull request <br> <img src="./media/pull_request.png" width="500px"> <br>
 			Notify reviewer(s) via Discord group chat that PR is ready for review <br>
