@@ -1,0 +1,55 @@
+
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+html, body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+
+}
+
+body {
+    background-color: #FF5656;
+}
+
+#routebox {
+    font-family: 'Hexagon';
+    position: absolute;
+    bottom: 30px;
+    z-index: -1;
+    left: 100px;
+    scale: 3;
+}
+
+.routechar {
+    position: relative;
+    bottom: 0;
+    text-transform: uppercase;
+}
+
+@keyframes routename {
+    0% {
+        bottom: 0;
+        text-transform: uppercase;
+    }
+    5% { bottom: 5px;
+        text-transform: lowercase;
+    }
+    45% {
+        bottom: 5px;
+        text-transform: lowercase;
+    }
+    50% {
+        bottom: 0;
+        text-transform: uppercase;
+    }
+
+    100% {
+        bottom: 0;
+        text-transform: uppercase;
+    }
+}
