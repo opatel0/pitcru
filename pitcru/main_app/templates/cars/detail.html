@@ -16,6 +16,12 @@
     <p>City Mileage: {{ car.city_mileage_min }} to {{ car.city_mileage_max }} MPG</p>
     <p>Highway Mileage: {{ car.highway_mileage_min }} to {{ car.highway_mileage_max }} MPG</p>
     <h3>Comments</h3>
+    {% for comment in comments %}
+    <h4>{{ comment.title }}</h4>
+    <p>Commentor: {{ comment.name }}</p>
+    <p>Commented on: {{ comment.date }}</p>
+    <p>{{ comment.content }}</p>
+    {% endfor %}
     <button>Add comment</button>
 </body>
 </html>

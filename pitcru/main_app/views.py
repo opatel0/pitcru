@@ -1,9 +1,11 @@
 from django.shortcuts import render
-from .models import Car
+from .models import Car, Comment
 
 # Create your views here.
 def cars_detail(request, car_id):
     car = Car.objects.get(id=car_id)
+    comments = Comment.objects.get_queryset().filter(car=car) #grabs only comments associated with the specified car
     return render(request, 'cars/detail.html', {
-        'car': car
+        'car': car,
+        'comments': comments
     })
