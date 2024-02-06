@@ -19,7 +19,6 @@ class Car(models.Model):
   displacement = models.FloatField()
   drive = models.CharField(max_length=10)
   fuel_type = models.CharField(max_length = 10)
-  gas = models.CharField(max_length=20)
   highway_mpg = models.IntegerField()
   make = models.CharField(max_length=100)
   model = models.CharField(max_length=100)
@@ -52,15 +51,15 @@ def seed_db():
   for carmake in Car_list:
     make= carmake
     print(make)
-    for caryear in Year_list:    
-      year = caryear
-      print(year)
-      api_url = f'https://api.api-ninjas.com/v1/cars?limit=1&make={make}&year={year}'
-      response = requests.get(api_url, headers={'X-Api-Key': API_KEY})
-      data = eval(response.text)
-      if len(data) > 0:
-        print(data)
-        for index_car in data:
-          instance = Car(city_mpg=-index_car['city_mpg'], car_class = index_car['class'] , combination_mpg = index_car['combination_mpg'] , cylinders = index_car['cylinders'] , displacement = index_car['displacement'] , drive = index_car['drive'] , fuel_type=index_car['fuel_type'], highway_mpg = index_car['highway_mpg']  , make = index_car['make'],model=index_car['model'],transmission = index_car['transmission'],year=index_car['year'] )
-          print(instance)
-          instance.save()
+    # for caryear in Year_list:    
+    year = '1985'
+      # print(year)
+    api_url = f'https://api.api-ninjas.com/v1/cars?limit=1&make={make}&year={year}'
+    response = requests.get(api_url, headers={'X-Api-Key': API_KEY})
+    data = eval(response.text)
+    if len(data) > 0:
+      print(data)
+      for index_car in data:
+        instance = Car(city_mpg=-index_car['city_mpg'], car_class = index_car['class'] , combination_mpg = index_car['combination_mpg'] , cylinders = index_car['cylinders'] , displacement = index_car['displacement'] , drive = index_car['drive'] , fuel_type=index_car['fuel_type'], highway_mpg = index_car['highway_mpg']  , make = index_car['make'],model=index_car['model'],transmission = index_car['transmission'],year=index_car['year'] )
+        print(instance)
+        instance.save()

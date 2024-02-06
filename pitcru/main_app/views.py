@@ -12,3 +12,9 @@ def cars_detail(request, car_id):
   
 def about(request):
     return render(request, 'about.html')
+
+def cars(request):
+    index_cars = Car.objects.all()
+    return render(request, 'cars/index.html',{
+    'cars':index_cars
+    })
