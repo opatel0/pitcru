@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Index</title>
+</head>
+<body>
+    <h1>Car List</h1>
+    {% for car in cars %}
+    <div class = 'car'>
+        <a href="details">
+            <h1>Model: {{car.model}}</h1>
+        </a>
+        <p>City MPG: {{car.city_mpg}}</p>
+        <p>Class: {{car.car_class}}</p>
+        <p>Combo MPG: {{car.comination_mpg}}</p>
+        <p>Cylinders: {{car.cylinders}}</p>
+        <p>Displacement: {{car.displacement}}</p>
+        <p>Drive Type: {{car.drive}}</p>
+        <p>Fuel Type: {{car.fuel_type}}</p>
+        <p>Highway MPG: {{car.highway_mp}}</p>
+        <p>Make: {{car.make}}</p>
+        <p>Transmission: {{car.transmission}}</p>
+        <p>Year: {{car.year}}</p>     
+    </div>
+    {% endfor %}
+</body>
+</html>
