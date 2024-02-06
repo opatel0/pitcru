@@ -1,0 +1,34 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PiTCRU</title>
+</head>
+<body>
+  <h1>Home</h1>
+  <section class="featured-cars">
+    <h2>Featured Cars</h2>
+    <ul class="car-grid">
+      {% for car in cars|slice:":3" %}
+          <li>
+
+        <figure>
+          <!-- car image -->
+        </figure>
+        <figcaption class="featured-info">
+          <div>
+            <h3>{{ car.year }} {{ car.make }} {{ car.model }}</h3>
+          </div>
+        </figcaption>
+          </li>
+      {% endfor %}
+    </ul>
+  </section>
+ <input type="text">
+ <button>Search</button>
+</body>
+</html>
+

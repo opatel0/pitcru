@@ -12,3 +12,7 @@ def cars_detail(request, car_id):
   
 def about(request):
     return render(request, 'about.html')
+
+def home(request):
+  cars = Car.objects.all()
+  return render(request, 'homepage.html', {'cars': cars})
