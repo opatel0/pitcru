@@ -1,16 +1,10 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
-    <script defer src="{% static 'scripts/app.js' %}"></script>
-</head>
-<body>
+{% extends 'base.html' %}
 
-
-    <p id="routebox">about</p>
-</body>
-</html>
+{% block box %}
+about
+{% endblock %}
+{% block content %}
+<section id="rowflex">
+<div id="textbox1"><p id="textscroll">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Facilis ratione commodi non ullam explicabo optio eum vel atque, officia sint quo veritatis velit reprehenderit soluta animi inventore similique hic eaque.</p></div>
+</section>
+{% endblock %}
