@@ -24,6 +24,7 @@ class Car(models.Model):
   model = models.CharField(max_length=100)
   transmission = models.CharField(max_length=20)
   year = models.IntegerField()
+  user = models.ForeignKey(User,on_delete=models.CASCADE)
 
   def __str__(self):
     return f"{self.year} {self.make} {self.model} ({self.id})"
