@@ -1,14 +1,10 @@
 
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PiTCRU</title>
-</head>
-<body>
-  <h1>Home</h1>
+{% block box %}
+  Home
+{% endblock %}
+
+{% block content %}
   <section class="featured-cars">
     <h2>Featured Cars</h2>
     <ul class="car-grid">
@@ -29,6 +25,4 @@
   </section>
  <input type="text">
  <button>Search</button>
-</body>
-</html>
-
+{% endblock %}
