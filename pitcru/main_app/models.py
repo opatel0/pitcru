@@ -12,6 +12,12 @@ year_list = [
 "1985", "1986", "1987", "1988", "1989", "1990", "1991", "1992", "1993", "1994", "1995", "1996", "1997", "1998", "1999", "2000", "2001", "2002", "2003", "2004", "2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023"]
 API_KEY = "sDR8LF/Y92EM5TcNfaQxVg==vKgPW0X07hL86rUt"
 
+
+class profile(models.Model):
+  user = models.OneToOneField(User, on_delete = models.CASCADE)
+  avatar = models.ImageField(default='default.jpg',upload_to='profile_images')
+  bio = models.TextField
+  
 # Create your models here.
 class Car(models.Model):
   city_mpg = models.IntegerField()
@@ -26,7 +32,7 @@ class Car(models.Model):
   model = models.CharField(max_length=100)
   transmission = models.CharField(max_length=20)
   year = models.IntegerField()
-  user = models.ForeignKey(User,on_delete=models.CASCADE)
+  # user = models.ForeignKey(User,on_delete=models.CASCADE)
 
   def __str__(self):
     return f"{self.year} {self.make} {self.model} ({self.id})"
@@ -39,7 +45,7 @@ class Comment(models.Model):
   title = models.CharField(max_length=100)
   content = models.TextField(max_length = 500)
   date = models.DateField('feeding date')
-  user = models.ForeignKey(User,on_delete=models.CASCADE)
+  # user = models.ForeignKey(User,on_delete=models.CASCADE)
   car = models.ForeignKey(
       Car,
       on_delete=models.CASCADE
