@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PiTCRU</title>
+</head>
+<body>
+    <h1>{{ car.year }} {{ car.make }} {{ car.model }}</h1>
+    <h2>Car Data</h2>
+    <p>Fuel: {{ car.fuel_type }}</p>
+    <p>Drive Transmission: {{ car.drive_transmission }}</p>
+    <p>Cylinders: {{ car.cylinders }}</p>
+    <p>Transmission: {{ car.transmission }}</p>
+    <p>Average Mileage: {{ car.average_mileage_min }} to {{ car.average_mileage_max }} MPG</p>
+    <p>City Mileage: {{ car.city_mileage_min }} to {{ car.city_mileage_max }} MPG</p>
+    <p>Highway Mileage: {{ car.highway_mileage_min }} to {{ car.highway_mileage_max }} MPG</p>
+    <h3>Comments</h3>
+    {% for comment in comments %}
+    <h4>{{ comment.title }}</h4>
+    <p>Commentor: {{ comment.name }}</p>
+    <p>Commented on: {{ comment.date }}</p>
+    <p>{{ comment.content }}</p>
+    {% endfor %}
+    <button>Add comment</button>
+</body>
+</html>
