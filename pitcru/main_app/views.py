@@ -18,3 +18,7 @@ def cars(request):
     return render(request, 'cars/index.html',{
     'cars':index_cars
     })
+
+def home(request):
+  cars = Car.objects.all()
+  return render(request, 'homepage.html', {'cars': cars})
