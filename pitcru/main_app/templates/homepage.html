@@ -12,10 +12,8 @@
   <section class="featured-cars">
     <h2>Featured Cars</h2>
     <ul class="car-grid">
-      {% for car in cars_list %}
-        {% if forloop.counter0|divisibleby:3 %}
+      {% for car in cars|slice:":3" %}
           <li>
-        {% endif %}
 
         <figure>
           <!-- car image -->
@@ -23,16 +21,14 @@
         <figcaption class="featured-info">
           <div>
             <h3>{{ car.year }} {{ car.make }} {{ car.model }}</h3>
-            <a href="{% url 'cars_details' car.id %}" class="btn">Details</a> 
           </div>
         </figcaption>
-        {% if forloop.counter0|add:1|divisibleby:3 or forloop.last %}
           </li>
-        {% endif %}
       {% endfor %}
     </ul>
   </section>
-  <!-- search bar -->
+ <input type="text">
+ <button>Search</button>
 </body>
 </html>
 
