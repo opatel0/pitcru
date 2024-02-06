@@ -3,10 +3,10 @@ import requests
 from django.db import models
 from django.urls import reverse
 
-Car_list = [
+car_list = [
 "Toyota", "Honda", "Ford", "Chevrolet", "Nissan", "Volkswagen", "Dodge", "Pontiac", "Oldsmobile", "Buick", "Plymouth", "Chrysler", "Mercedes-Benz", "BMW", "Mazda", "GMC", "Jeep", "Subaru", "Volvo", "Mitsubishi", "Mercury", "Cadillac", "Isuzu", "Lincoln", "Saab", "Jaguar", "Lexus", "Acura", "Alfa Romeo", "Audi", "Fiat", "Land Rover", "Porsche", "Suzuki", "Hyundai", "Kia", "Daihatsu", "Peugeot", "Renault", "Opel", "Lancia", "Citroën", "Triumph", "Datsun", "Infiniti", "Pontiac", "AMC", "Geo", "Plymouth", "Eagle"]
 
-Year_list = [
+year_list = [
 "1985", "1986", "1987", "1988", "1989", "1990", "1991", "1992", "1993", "1994", "1995", "1996", "1997", "1998", "1999", "2000", "2001", "2002", "2003", "2004", "2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023"]
 API_KEY = "sDR8LF/Y92EM5TcNfaQxVg==vKgPW0X07hL86rUt"
 
@@ -48,10 +48,10 @@ class Comment(models.Model):
       ordering = ['-date']
 
 def seed_db():
-  for carmake in Car_list:
+  for carmake in car_list:
     make= carmake
     print(make)
-    # for caryear in Year_list:    
+    # for caryear in year_list:    
     year = '1985'
       # print(year)
     api_url = f'https://api.api-ninjas.com/v1/cars?limit=1&make={make}&year={year}'
