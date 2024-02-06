@@ -12,3 +12,7 @@ def cars_detail(request, car_id):
   
 def about(request):
     return render(request, 'about.html')
+
+def home(request):
+  car_list = ['car1', 'car2', 'car3', 'car4', 'car5', 'car6']
+  return render(request, 'homepage.html', {'car_list': car_list})

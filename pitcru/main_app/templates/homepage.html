@@ -1,0 +1,38 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PiTCRU</title>
+</head>
+<body>
+  <h1>Home</h1>
+  <section class="featured-cars">
+    <h2>Featured Cars</h2>
+    <ul class="car-grid">
+      {% for car in cars_list %}
+        {% if forloop.counter0|divisibleby:3 %}
+          <li>
+        {% endif %}
+
+        <figure>
+          <!-- car image -->
+        </figure>
+        <figcaption class="featured-info">
+          <div>
+            <h3>{{ car.year }} {{ car.make }} {{ car.model }}</h3>
+            <a href="{% url 'cars_details' car.id %}" class="btn">Details</a> 
+          </div>
+        </figcaption>
+        {% if forloop.counter0|add:1|divisibleby:3 or forloop.last %}
+          </li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+  </section>
+  <!-- search bar -->
+</body>
+</html>
+
