@@ -2,6 +2,8 @@
 import requests
 from django.db import models
 from django.urls import reverse
+from django.contrib.auth.models import User
+from django.core.validators import MaxValueValidator, MinValueValidator
 
 car_list = [
 "Toyota", "Honda", "Ford", "Chevrolet", "Nissan", "Volkswagen", "Dodge", "Pontiac", "Oldsmobile", "Buick", "Plymouth", "Chrysler", "Mercedes-Benz", "BMW", "Mazda", "GMC", "Jeep", "Subaru", "Volvo", "Mitsubishi", "Mercury", "Cadillac", "Isuzu", "Lincoln", "Saab", "Jaguar", "Lexus", "Acura", "Alfa Romeo", "Audi", "Fiat", "Land Rover", "Porsche", "Suzuki", "Hyundai", "Kia", "Daihatsu", "Peugeot", "Renault", "Opel", "Lancia", "Citroën", "Triumph", "Datsun", "Infiniti", "Pontiac", "AMC", "Geo", "Plymouth", "Eagle"]
@@ -37,6 +39,7 @@ class Comment(models.Model):
   title = models.CharField(max_length=100)
   content = models.TextField(max_length = 500)
   date = models.DateField('feeding date')
+  user = models.ForeignKey(User,on_delete=models.CASCADE)
   car = models.ForeignKey(
       Car,
       on_delete=models.CASCADE
