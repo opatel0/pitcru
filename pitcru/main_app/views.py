@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Car, Comment
 
 # Create your views here.
@@ -9,3 +9,6 @@ def cars_detail(request, car_id):
         'car': car,
         'comments': comments
     })
+  
+def about(request):
+    return render(request, 'about.html')
