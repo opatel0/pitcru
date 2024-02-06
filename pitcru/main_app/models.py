@@ -63,3 +63,131 @@ def seed_db():
         instance = Car(city_mpg=-index_car['city_mpg'], car_class = index_car['class'] , combination_mpg = index_car['combination_mpg'] , cylinders = index_car['cylinders'] , displacement = index_car['displacement'] , drive = index_car['drive'] , fuel_type=index_car['fuel_type'], highway_mpg = index_car['highway_mpg']  , make = index_car['make'],model=index_car['model'],transmission = index_car['transmission'],year=index_car['year'] )
         print(instance)
         instance.save()
+
+  car_instances = [car for car in Car.objects.all()[:6]]
+  
+  # Instance 1
+  comment1 = Comment(
+    name='Jud',
+    title="Ol' reliable",
+    content='Best car ever',
+    date='2024-02-05',
+    car=car_instances[0]
+  )
+
+  # Instance 2
+  comment2 = Comment(
+    name='Alice',
+    title='Impressive Performance',
+    content='I love the speed and handling!',
+    date='2024-02-06',
+    car=car_instances[1]
+  )
+
+  # Instance 3
+  comment3 = Comment(
+    name='Bob',
+    title='Fuel Efficiency',
+    content='Great on gas mileage!',
+    date='2024-02-07',
+    car=car_instances[1]
+  )
+
+  # Instance 4
+  comment4 = Comment(
+    name='Eva',
+    title='Sleek Design',
+    content='The exterior design is stunning.',
+    date='2024-02-08',
+    car=car_instances[3]
+  )
+
+  # Instance 5
+  comment5 = Comment(
+    name='Alex',
+    title='Comfortable Ride',
+    content='Very comfortable for long drives.',
+    date='2024-02-09',
+    car=car_instances[3]
+  )
+
+  # Instance 6
+  comment6 = Comment(
+    name='Chris',
+    title='Tech Features',
+    content='Love the advanced technology features!',
+    date='2024-02-10',
+    car=car_instances[4]
+  )
+
+  # Instance 7
+  comment7 = Comment(
+    name='Sophie',
+    title='Reliable Companion',
+    content='Never had any major issues. A reliable choice.',
+    date='2024-02-11',
+    car=car_instances[4]
+  )
+
+  # Instance 8
+  comment8 = Comment(
+    name='Michael',
+    title='Spacious Interior',
+    content='The interior space is impressive.',
+    date='2024-02-12',
+    car=car_instances[4]
+  )
+
+  # Instance 9
+  comment9 = Comment(
+    name='Lily',
+    title='Family Friendly',
+    content='Perfect for a family with plenty of space.',
+    date='2024-02-13',
+    car=car_instances[5]
+  )
+
+  # Instance 10
+  comment10 = Comment(
+    name='Tom',
+    title='Safety First',
+    content='Top-notch safety features make me feel secure.',
+    date='2024-02-14',
+    car=car_instances[5]
+  )
+
+  # Instance 11
+  comment11 = Comment(
+    name='Sara',
+    title='Easy to Maintain',
+    content='Low maintenance and cost-effective.',
+    date='2024-02-15',
+    car=car_instances[5]
+  )
+
+  # Instance 12
+  comment12 = Comment(
+    name='Ryan',
+    title='Great Resale Value',
+    content='Holds its value well over time.',
+    date='2024-02-16',
+    car=car_instances[5]
+  )
+  comment_list = [
+    comment1,
+    comment2,
+    comment3,
+    comment4,
+    comment5,
+    comment6,
+    comment7,
+    comment8,
+    comment9,
+    comment10,
+    comment11,
+    comment12
+  ]
+
+  for comment in comment_list:
+    print(comment)
+    comment.save()

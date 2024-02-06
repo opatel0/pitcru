@@ -85,15 +85,17 @@ We implement a feature branch workflow, the rules of which include: <br>
 </ol>
 <strong>NOTE:</strong> All discussion regarding PRs must be logged in PR comments. If voice call is necessary to resolve certain topics, one of the attendees of that conversation must include notes from the conversation as a comment in the PR. Merge conflicts should also be handled in the Github PR UI, and should always be handled by at least two people.</li>
 </details>
-<summary>How we Seed</summary>
-<h2>Follow the following steps</h2>
-<ul>
-	<li>First make sure there isnt any changes that havent been migrated<pre>python3 manage.py makemigrations</pre>
-	<li>Migrate any changes that may be pending<pre>python3 manage.py migrate</pre>
-	<li>Drop your db through the terminal<pre>dropdb pitcru</pre>
-	<li>Create your db through the terminal<pre>createdb pitcru</pre>
-	<li>If you dont have requests folder download using the follow<pre>pip3 install requests</pre>
-	<li>Enter the python shell<pre>python3 manage.py shell</pre>
-	<li>Import the main app models folder <pre>from main_app.models import *</pre>
-	<li>Run the seeding function <pre>seed_db()</pre>
-<ul>
+<details>
+	<summary>How we Seed</summary>
+	<h2>Follow the following steps</h2>
+	<ul>
+		<li>First make sure there isnt any changes that havent been migrated<pre>python3 manage.py makemigrations</pre>
+		<li>Migrate any changes that may be pending<pre>python3 manage.py migrate</pre>
+		<li>Drop your db through the terminal<pre>dropdb pitcru</pre>
+		<li>Create your db through the terminal<pre>createdb pitcru</pre>
+		<li>If you dont have requests folder download using the follow<pre>pip3 install requests</pre>
+		<li>Enter the python shell<pre>python3 manage.py shell</pre>
+		<li>Import the main app models folder <pre>from main_app.models import *</pre>
+		<li>Run the seeding function <pre>seed_db()</pre>
+	<ul>
+</deatils>
