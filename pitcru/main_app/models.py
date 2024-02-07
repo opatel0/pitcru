@@ -44,7 +44,8 @@ class Comment(models.Model):
   name = models.CharField(max_length=100)
   title = models.CharField(max_length=100)
   content = models.TextField(max_length = 500)
-  date = models.DateField()
+  date_created= models.DateField()
+  last_updated= models.DateField()
   user = models.ForeignKey(User,on_delete=models.CASCADE)
   car = models.ForeignKey(
       Car,
@@ -52,10 +53,10 @@ class Comment(models.Model):
   )
   
   def __str__(self):
-      return f"{self.name} commented on {self.date}"
+      return f"{self.name} commented on '{self.date_created}'"
 
   class Meta:
-      ordering = ['-date']
+      ordering = ['-date_created']
 
 def seed_db():
   for carmake in car_list:

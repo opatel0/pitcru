@@ -45,30 +45,30 @@ def addcomment(request,car_id):
       new_comment = form.save(commit=False)
       new_comment.car_id = car_id
       new_comment.user = request.user
-      new_comment.date = datetime.today()
+      new_comment.date_created = datetime.today()
+      new_comment.last_updated = datetime.today()
       new_comment.save()
   return redirect('details', car_id=car_id)
 
 def editcommentshow(request,comment_id):
-    comment = request.user.comment_set.filter(id=comment_id)
-    return render(request, 'edit/comments.html', {
-        'comment': comment
-    })
+  comment = request.user.comment_set.filter(id=comment_id).get()
+  return render(request, 'edit/comments.html', {
+      'comment': comment
+  })
 
-def editcomment(request,car_id):
-  if(request.method=="UPDATE"):
+def editcomment(request,comment_id):
     form = CommentForm(request.POST)
     if form.is_valid():
+      print(form)
       new_comment = form.save(commit=False)
-      new_comment.car_id = car_id
-      new_comment.user = request.user
-      new_comment.date = datetime.today()
-      new_comment.save()
-  return redirect('details', car_id=car_id)
+      print(new_comment)
+      new_comment.last_updated = datetime.today()
+      request.user.comment_set.filter(id=comment_id).UPDATE(new_comment)
+    return redirect('profile')
 
 def deletecomment(request,comment_id):
-    request.user.comment_set.filter(id=comment_id).delete()
-    return redirect('profile')
+  request.user.comment_set.filter(id=comment_id).delete()
+  return redirect('profile')
 
 @login_required
 def logout_view(request): 

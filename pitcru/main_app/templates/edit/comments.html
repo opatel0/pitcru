@@ -5,9 +5,12 @@ Edit Comments
 {% endblock %}
 
 {% block content %}
-<form action="{% url 'editcomment' comment.id %}" method="PATCH">
+<form action="/commentedit/{{comment.id}}/" method="POST">
+  {% csrf_token %}
   <label for = "Title">Title</Label>
   <input type = 'text' id = 'Title' name = 'Title' value = {{comment.title}}>
-  <input type="submit" class="btn" value="Add Comment">
+  <label for = "Content">Content</Label>
+  <input type = 'text' id = 'Content' name = 'Content' value = {{comment.content}}>
+  <input type="submit" class="btn" value="Update Comment">
 </form>
 {% endblock %}
