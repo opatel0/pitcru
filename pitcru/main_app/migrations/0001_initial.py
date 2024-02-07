@@ -30,6 +30,7 @@ class Migration(migrations.Migration):
                 ('model', models.CharField(max_length=100)),
                 ('transmission', models.CharField(max_length=20)),
                 ('year', models.IntegerField()),
+                ('is_featured', models.BooleanField()),
             ],
         ),
         migrations.CreateModel(

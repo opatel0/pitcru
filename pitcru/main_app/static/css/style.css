@@ -1,7 +1,6 @@
 @font-face {
     font-family: 'Hexagon';
-    src: url('fonts/Hexagon.woff');
-    format: ('woff');
+    src: url('fonts/Hexagon.woff') format('woff');
 }
 * {
     box-sizing: border-box;
