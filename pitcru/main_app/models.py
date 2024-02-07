@@ -44,7 +44,7 @@ class Comment(models.Model):
   name = models.CharField(max_length=100)
   title = models.CharField(max_length=100)
   content = models.TextField(max_length = 500)
-  date = models.DateField('feeding date')
+  date = models.DateField()
   user = models.ForeignKey(User,on_delete=models.CASCADE)
   car = models.ForeignKey(
       Car,
