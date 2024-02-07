@@ -33,7 +33,7 @@ class Car(models.Model):
   transmission = models.CharField(max_length=20)
   year = models.IntegerField()
   is_featured = models.BooleanField()
-  user = models.ForeignKey(User,on_delete=models.CASCADE)
+  # user = models.ForeignKey(User,on_delete=models.CASCADE)
 
   def __str__(self):
     return f"{self.year} {self.make} {self.model} ({self.id})"
@@ -47,7 +47,7 @@ class Comment(models.Model):
   content = models.TextField(max_length = 500)
   date_created= models.DateField()
   last_updated= models.DateField()
-  user = models.ForeignKey(User,on_delete=models.CASCADE)
+  # user = models.ForeignKey(User,on_delete=models.CASCADE)
   car = models.ForeignKey(
       Car,
       on_delete=models.CASCADE
@@ -83,7 +83,8 @@ def seed_db():
     name='Jud',
     title="Ol' reliable",
     content='Best car ever',
-    date='2024-02-05',
+    date_created='2024-02-05',
+    last_updated='2024-02-05',
     car=car_instances[0]
   )
 
@@ -92,7 +93,8 @@ def seed_db():
     name='Alice',
     title='Impressive Performance',
     content='I love the speed and handling!',
-    date='2024-02-06',
+    date_created='2024-02-06',
+    last_updated='2024-02-06',
     car=car_instances[1]
   )
 
@@ -101,7 +103,8 @@ def seed_db():
     name='Bob',
     title='Fuel Efficiency',
     content='Great on gas mileage!',
-    date='2024-02-07',
+    date_created='2024-02-07',
+    last_updated='2024-02-07',
     car=car_instances[1]
   )
 
@@ -110,7 +113,8 @@ def seed_db():
     name='Eva',
     title='Sleek Design',
     content='The exterior design is stunning.',
-    date='2024-02-08',
+    date_created='2024-02-08',
+    last_updated='2024-02-08',
     car=car_instances[3]
   )
 
@@ -119,7 +123,8 @@ def seed_db():
     name='Alex',
     title='Comfortable Ride',
     content='Very comfortable for long drives.',
-    date='2024-02-09',
+    date_created='2024-02-09',
+    last_updated='2024-02-09',
     car=car_instances[3]
   )
 
@@ -128,7 +133,8 @@ def seed_db():
     name='Chris',
     title='Tech Features',
     content='Love the advanced technology features!',
-    date='2024-02-10',
+    date_created='2024-02-10',
+    last_updated='2024-02-10',
     car=car_instances[4]
   )
 
@@ -137,7 +143,8 @@ def seed_db():
     name='Sophie',
     title='Reliable Companion',
     content='Never had any major issues. A reliable choice.',
-    date='2024-02-11',
+    date_created='2024-02-11',
+    last_updated='2024-02-11',
     car=car_instances[4]
   )
 
@@ -146,7 +153,8 @@ def seed_db():
     name='Michael',
     title='Spacious Interior',
     content='The interior space is impressive.',
-    date='2024-02-12',
+    date_created='2024-02-12',
+    last_updated='2024-02-12',
     car=car_instances[4]
   )
 
@@ -155,7 +163,8 @@ def seed_db():
     name='Lily',
     title='Family Friendly',
     content='Perfect for a family with plenty of space.',
-    date='2024-02-13',
+    date_created='2024-02-13',
+    last_updated='2024-02-13',
     car=car_instances[5]
   )
 
@@ -164,7 +173,8 @@ def seed_db():
     name='Tom',
     title='Safety First',
     content='Top-notch safety features make me feel secure.',
-    date='2024-02-14',
+    date_created='2024-02-14',
+    last_updated='2024-02-14',
     car=car_instances[5]
   )
 
@@ -173,7 +183,8 @@ def seed_db():
     name='Sara',
     title='Easy to Maintain',
     content='Low maintenance and cost-effective.',
-    date='2024-02-15',
+    date_created='2024-02-15',
+    last_updated='2024-02-15',
     car=car_instances[5]
   )
 
@@ -182,7 +193,8 @@ def seed_db():
     name='Ryan',
     title='Great Resale Value',
     content='Holds its value well over time.',
-    date='2024-02-16',
+    date_created='2024-02-16',
+    last_updated='2024-02-16',
     car=car_instances[5]
   )
   comment_list = [
