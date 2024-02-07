@@ -20,5 +20,5 @@ def cars(request):
     })
 
 def home(request):
-  cars = Car.objects.all()
+  cars = Car.objects.get_queryset().filter(is_featured=True)
   return render(request, 'homepage.html', {'cars': cars})
