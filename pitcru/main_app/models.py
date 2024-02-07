@@ -24,6 +24,7 @@ class Car(models.Model):
   model = models.CharField(max_length=100)
   transmission = models.CharField(max_length=20)
   year = models.IntegerField()
+  is_featured = models.BooleanField()
 
   def __str__(self):
     return f"{self.year} {self.make} {self.model} ({self.id})"
@@ -60,7 +61,7 @@ def seed_db():
     if len(data) > 0:
       print(data)
       for index_car in data:
-        instance = Car(city_mpg=-index_car['city_mpg'], car_class = index_car['class'] , combination_mpg = index_car['combination_mpg'] , cylinders = index_car['cylinders'] , displacement = index_car['displacement'] , drive = index_car['drive'] , fuel_type=index_car['fuel_type'], highway_mpg = index_car['highway_mpg']  , make = index_car['make'],model=index_car['model'],transmission = index_car['transmission'],year=index_car['year'] )
+        instance = Car(city_mpg=-index_car['city_mpg'], car_class = index_car['class'] , combination_mpg = index_car['combination_mpg'] , cylinders = index_car['cylinders'] , displacement = index_car['displacement'] , drive = index_car['drive'] , fuel_type=index_car['fuel_type'], highway_mpg = index_car['highway_mpg']  , make = index_car['make'],model=index_car['model'],transmission = index_car['transmission'],year=index_car['year'],is_featured=False )
         print(instance)
         instance.save()
 
@@ -191,3 +192,30 @@ def seed_db():
   for comment in comment_list:
     print(comment)
     comment.save()
+  
+  print("SEEDING FEATURED CARS")
+  years = ['2006', '2000', '2023', '1985', '1985', '1985', '2010', '1991', '2015', '2008', '2020', '1987']
+  makes = ['subaru', 'toyota', 'maserati', 'alfa romeo', 'renault', 'dodge', 'ferrari', 'buick', 'ford', 'toyota', 'volkswagen', 'chevrolet']
+  models = ['baja', 'celica', 'MC20', 'spider veloce 2000', 'fuego', 'charger', '458 italia', 'lesabre', 'mustang', 'yaris', 'tiguan', 'el camino']
+  for year, make, model in zip(years, makes, models):
+    api_url = f'https://api.api-ninjas.com/v1/cars?limit=1&year={year}&make={make}&model={model}'
+    response = requests.get(api_url, headers={'X-Api-Key': API_KEY})
+    data = eval(response.text)
+    car = Car(
+      city_mpg = data[0]['city_mpg'],
+      car_class = data[0]['class'],
+      combination_mpg= data[0]['combination_mpg'],
+      cylinders = data[0]['cylinders'],
+      displacement = data[0]['displacement'],
+      drive = data[0]['drive'],
+      fuel_type = data[0]['fuel_type'],
+      highway_mpg = data[0]['highway_mpg'],
+      make = data[0]['make'],
+      model = data[0]['model'],
+      transmission = data[0]['transmission'],
+      year = data[0]['year'],
+      is_featured = True
+    )
+    car.save()
+    print(car)
+  print("SEEDING PROCESS SUCCESSFUL")
