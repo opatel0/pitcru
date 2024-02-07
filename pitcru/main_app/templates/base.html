@@ -9,16 +9,16 @@
     <script defer src="{% static 'scripts/app.js' %}"></script>
 </head>
 <body>
-    {% if user.is_authenticated %}
-      <li><a href="{% url 'logout' %}">Log Out</a></li>
-    {% else %}
-      <li><a href="{% url 'signup' %}">Sign Up</a></li>
-      <li><a href="{% url 'login' %}">Log In</a></li>
-    {% endif %}
     <div id="pitnav">nav</div>
     <p id="routebox">{% block box %}{% endblock %}</p>
     <p id="shadowbox"></p>
     <main id="pitmain">
+        {% if user.is_authenticated %}
+        <li><a href="{% url 'logout' %}">Log Out</a></li>
+      {% else %}
+        <li><a href="{% url 'signup' %}">Sign Up</a></li>
+        <li><a href="{% url 'login' %}">Log In</a></li>
+      {% endif %}
         {% block content %}
         {% endblock %}
     </main>
