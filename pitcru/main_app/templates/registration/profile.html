@@ -5,7 +5,8 @@ Car Index
 {% endblock %}
 
 {% block content %}
-<h1>Car List</h1>
+<div class = personalcars>
+<h1>Personal Car List</h1>
     {% for car in cars %}
     <div class = 'car'>
         <a href="/cars/{{car.id}}">
@@ -24,5 +25,20 @@ Car Index
         <p>Year: {{car.year}}</p>     
     </div>
     {% endfor %}
-</body>
+</div>
+<div class = personalcomments></div>
+    <h1>Personal Comment List</h1>
+    {% for comment in comments %}
+    <div class = 'comment'>
+            <h1>Title: {{comment.title}}</h1>
+            name = {{comment.name}}
+            content = {{comment.content}}
+            date = {{comment.date}}
+            car =  {{comment.car}}
+    </div>
+    <a href="/edit_show_comment/{{comment.id}}">Edit</a>
+    <a href="/delete_comment/{{comment.id}}">Delete</a>
+  </form>
+    {% endfor %}
+</div>
 {% endblock %}

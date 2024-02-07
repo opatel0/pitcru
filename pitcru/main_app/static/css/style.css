@@ -2,7 +2,6 @@
     font-family: 'Hexagon';
     src: url('fonts/Hexagon.woff') format('woff');
 }
-
 * {
     box-sizing: border-box;
     margin: 0;
