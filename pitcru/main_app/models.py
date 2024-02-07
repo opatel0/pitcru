@@ -3,7 +3,7 @@ import requests
 from django.db import models
 from django.urls import reverse
 from django.contrib.auth.models import User
-from django.core.validators import MaxValueValidator, MinValueValidator
+
 
 car_list = [
 "Toyota", "Honda", "Ford", "Chevrolet", "Nissan", "Volkswagen", "Dodge", "Pontiac", "Oldsmobile", "Buick", "Plymouth", "Chrysler", "Mercedes-Benz", "BMW", "Mazda", "GMC", "Jeep", "Subaru", "Volvo", "Mitsubishi", "Mercury", "Cadillac", "Isuzu", "Lincoln", "Saab", "Jaguar", "Lexus", "Acura", "Alfa Romeo", "Audi", "Fiat", "Land Rover", "Porsche", "Suzuki", "Hyundai", "Kia", "Daihatsu", "Peugeot", "Renault", "Opel", "Lancia", "Citroën", "Triumph", "Datsun", "Infiniti", "Pontiac", "AMC", "Geo", "Plymouth", "Eagle"]
@@ -13,7 +13,7 @@ year_list = [
 API_KEY = "sDR8LF/Y92EM5TcNfaQxVg==vKgPW0X07hL86rUt"
 
 
-class profile(models.Model):
+class Profile(models.Model):
   user = models.OneToOneField(User, on_delete = models.CASCADE)
   avatar = models.ImageField(default='default.jpg',upload_to='profile_images')
   bio = models.TextField

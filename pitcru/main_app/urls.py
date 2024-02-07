@@ -10,7 +10,7 @@ urlpatterns = [
     path('accounts/signup/', views.signup, name='signup'),
     path('profile/', views.profile, name = 'profile'),
     path('comment/<int:car_id>/', views.addcomment, name = 'comment'),
-    path('commentedit/<int:comment_id>/', views.editcomment, name = 'editcomment'),
-    path('commenteditshow/<int:comment_id>/',views.editcommentshow, name= 'editcommentshow'),
-    path('commentdelete/<int:comment_id>/', views.deletecomment, name = 'deletecomment')
+    path('edit_comment/<int:comment_id>/', views.editcomment, name = 'edit_comment'),
+    path('edit_show_comment/<int:comment_id>/',views.editcommentshow, name= 'edit_show_comment'),
+    path('delete_comment/<int:comment_id>/', views.deletecomment, name = 'delete_comment')
 ]

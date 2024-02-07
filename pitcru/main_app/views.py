@@ -2,9 +2,7 @@ from django.shortcuts import render, redirect
 from .models import Car, Comment
 from django.contrib.auth import logout, login
 from django.contrib.auth.forms import UserCreationForm
-from django.conf import settings
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import LoginRequiredMixin
 from .forms import CommentForm
 from datetime import datetime
 

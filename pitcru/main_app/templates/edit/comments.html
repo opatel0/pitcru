@@ -5,7 +5,7 @@ Edit Comments
 {% endblock %}
 
 {% block content %}
-<form action="/commentedit/{{comment.id}}/" method="POST">
+<form action="/edit_comment/{{comment.id}}/" method="POST">
   {% csrf_token %}
   <label for = "Title">Title</Label>
   <input type = 'text' id = 'Title' name = 'Title' value = {{comment.title}}>
