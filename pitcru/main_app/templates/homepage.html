@@ -8,27 +8,26 @@ home
     <h2>Featured Cars</h2>
     <ul class="car-grid">
       {% for car in cars|slice:":3" %}
-          <li>
-
-        <figure>
-          <!-- car image -->
-        </figure>
-        <figcaption class="featured-info">
-          <div>
+        <li>
+          <figure>
+            <!-- car image -->
+          </figure>
+          <figcaption class="featured-info">
+            <div>
             <h3>{{ car.year }} {{ car.make }} {{ car.model }}</h3>
-          </div>
-        </figcaption>
-          </li>
+            </div>
+          </figcaption>
+        </li>
       {% endfor %}
     </ul>
   </section>
   <div>
     <h3>Car Search</h3>
- <input type="text">
- <button>Year</button>
- <input type="text">
- <button>Make</button>
- <input type="text">
- <button>Model</button>
+    <input type="text">
+    <button>Year</button>
+    <input type="text">
+    <button>Make</button>
+    <input type="text">
+    <button>Model</button>
   </div>
 {% endblock %}
