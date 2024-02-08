@@ -31,6 +31,8 @@ Car Index
     {% for comment in comments %}
     <div class = 'comment'>
             <h1>Title: {{comment.title}}</h1>
+            <h1>Date Create: {{comment.date_created}}</h1>
+            <h1>Last Update: {{comment.last_updated}}</h1>
             name = {{comment.name}}
             content = {{comment.content}}
             date = {{comment.date}}
