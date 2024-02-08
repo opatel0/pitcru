@@ -5,7 +5,8 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from .forms import CommentForm
 from datetime import datetime
-
+import requests
+API_KEY = "sDR8LF/Y92EM5TcNfaQxVg==vKgPW0X07hL86rUt"
 
 # Create your views here.
 def cars_detail(request, car_id):
@@ -87,3 +88,26 @@ def signup(request):
   form = UserCreationForm() 
   context = {'form': form, 'error_message': error_message}
   return render(request, 'registration/signup.html', context) 
+
+def search(request):
+    data=request.POST
+    year = data['year']
+    make = data['make']
+    model = data['model']
+    if year != '':
+      yearstring = f'year={year}&'
+    else:
+       yearstring = ''
+    if make != '':
+       makestring = f'make={make}&'
+    else:
+       makestring = ''
+    if model != '':
+      modelstring = f'model={model}&'
+    else:
+       modelstring = ''
+    api_url = f'https://api.api-ninjas.com/v1/cars?limit=1&{yearstring}{makestring}{modelstring}'
+    response = requests.get(api_url, headers={'X-Api-Key': API_KEY})
+    cardata = eval(response.text)
+    print(cardata)
+    return redirect('cars')
