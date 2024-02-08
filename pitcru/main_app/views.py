@@ -3,6 +3,7 @@ from .models import Car, Comment
 from django.contrib.auth import logout, login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
+from django.http import Http404
 from .forms import CommentForm
 from datetime import datetime
 import requests
@@ -10,9 +11,12 @@ API_KEY = "sDR8LF/Y92EM5TcNfaQxVg==vKgPW0X07hL86rUt"
 
 # Create your views here.
 def cars_detail(request, car_id):
-    car = Car.objects.get(id=car_id)
+    try:
+      car = Car.objects.get(id=car_id)
+    except Car.DoesNotExist:
+      raise Http404("Car does not exist")
     comment_form = CommentForm()
-    comments = Comment.objects.get_queryset().filter(car=car) #grabs only comments associated with the specified car
+    comments = Comment.objects.get_queryset().filter(car=car)
     return render(request, 'cars/detail.html', {
         'car': car,
         'comments': comments,
@@ -105,3 +109,26 @@ def signup(request):
   form = UserCreationForm() 
   context = {'form': form, 'error_message': error_message}
   return render(request, 'registration/signup.html', context) 
+
+def search(request):
+    data=request.POST
+    year = data['year']
+    make = data['make']
+    model = data['model']
+    if year != '':
+      yearstring = f'year={year}&'
+    else:
+       yearstring = ''
+    if make != '':
+       makestring = f'make={make}&'
+    else:
+       makestring = ''
+    if model != '':
+      modelstring = f'model={model}&'
+    else:
+       modelstring = ''
+    api_url = f'https://api.api-ninjas.com/v1/cars?limit=1&{yearstring}{makestring}{modelstring}'
+    response = requests.get(api_url, headers={'X-Api-Key': API_KEY})
+    cardata = eval(response.text)
+    print(cardata)
+    return redirect('cars')
