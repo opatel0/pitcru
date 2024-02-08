@@ -55,13 +55,8 @@ def editcommentshow(request,comment_id):
   })
 
 def editcomment(request,comment_id):
-    form = CommentForm(request.POST)
-    if form.is_valid():
-      print(form)
-      new_comment = form.save(commit=False)
-      print(new_comment)
-      new_comment.last_updated = datetime.today()
-      request.user.comment_set.filter(id=comment_id).UPDATE(new_comment)
+    data=request.POST
+    request.user.comment_set.filter(id=comment_id).update(title=data['Title'],content=data['Content'],name=data['Name'],last_updated=datetime.today())
     return redirect('profile')
 
 def deletecomment(request,comment_id):
