@@ -8,24 +8,33 @@
     <title>About</title>
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
     <script defer src="../static/scripts/app.js"></script>
-</head>
-<body>
-    <div id="pitnav">nav</div>
+  </head>
+  <body>
+    <div id="pitnav">
+      <ul id="navlist">
+    <li class="navbit" ><a href="{% url 'about' %}">About</a></li>
+    <li class="navbit" ><a href="{% url 'home' %}">Home</a></li>
+    <li class="navbit" ><a href="{% url 'cars' %}">Car List</a></li>
+      {% if user.is_authenticated %}
+      <li class="navbit" ><a href="{% url 'logout' %}">Log Out</a></li>
+      <li class="navbit" ><a href="{% url 'profile' %}">Profile</a></li>
+    {% else %}
+      <li class="navbit" ><a href="{% url 'signup' %}">Sign Up</a></li>
+      <li class="navbit" ><a href="{% url 'login' %}">Log In</a></li>
+    {% endif %}
+    <li class="navbit"><a href="{% url 'home' %}">PiTCRU</a></li>
+    </ul>
+    <div id="linebox"><div id="loadbox"><div id="navline"></div></div></div>
+    </div>
+    <main id="pitmain">
+      {% block content %}
+      {% endblock %}
+    </main>
+    <div id="pitfoot">
+      <section>
     <p id="routebox">{% block box %}{% endblock %}</p>
     <p id="shadowbox"></p>
-    <main id="pitmain">
-      <li><a href="{% url 'about' %}">About</a></li>
-      <li><a href="{% url 'home' %}">Home</a></li>
-      <li><a href="{% url 'cars' %}">Car List</a></li>
-        {% if user.is_authenticated %}
-        <li><a href="{% url 'logout' %}">Log Out</a></li>
-        <li><a href="{% url 'profile' %}">Profile</a></li>
-      {% else %}
-        <li><a href="{% url 'signup' %}">Sign Up</a></li>
-        <li><a href="{% url 'login' %}">Log In</a></li>
-      {% endif %}
-        {% block content %}
-        {% endblock %}
-    </main>
+    </section>
+    </div>
 </body>
 </html>
