@@ -12,10 +12,10 @@ from datetime import datetime
 def cars_detail(request, car_id):
     try:
       car = Car.objects.get(id=car_id)
-      comment_form = CommentForm()
-      comments = Comment.objects.get_queryset().filter(car=car) #grabs only comments associated with the specified car
     except Car.DoesNotExist:
       raise Http404("Car does not exist")
+    comment_form = CommentForm()
+    comments = Comment.objects.get_queryset().filter(car=car)
     return render(request, 'cars/detail.html', {
         'car': car,
         'comments': comments,
