@@ -34,6 +34,7 @@ class Car(models.Model):
   def get_absolute_url(self):
     return reverse('detail', kwargs={'car_id': self.id})
 
+  
 class Comment(models.Model):
   name = models.CharField(max_length=100)
   title = models.CharField(max_length=100)
