@@ -32,16 +32,19 @@ def showsearch(request):
 def search(request):
     data=request.POST
     api_string = make_search_string(data)
+    Car.objects.filter(is_searched=True).update(is_searched=False)
     try:
-      api_url = f'https://api.api-ninjas.com/v1/cars?limit=1&{api_string}'
+      api_url = f'https://api.api-ninjas.com/v1/cars?limit=50&{api_string}'
       response = requests.get(api_url, headers={'X-Api-Key': API_KEY})
-      index_car = eval(response.text)
-      print(index_car)
-      data_compare=Car.objects.get_queryset().filter(model=index_car[0]["model"])
-      if(bool(data_compare)==False):
-        instance = Car(city_mpg=index_car[0]['city_mpg'], car_class = index_car[0]['class'] , combination_mpg = index_car[0]['combination_mpg'] , cylinders = index_car[0]['cylinders'] , displacement = index_car[0]['displacement'] , drive = index_car[0]['drive'] , fuel_type=index_car[0]['fuel_type'], highway_mpg = index_car[0]['highway_mpg']  , make = index_car[0]['make'],model=index_car[0]['model'],transmission = index_car[0]['transmission'],year=index_car[0]['year'],is_featured=False,user_id = 1)
-        instance.save()
-      showcar=Car.objects.get_queryset().filter(model=index_car[0]["model"])
+      api_result = eval(response.text)
+      for index_car in api_result:
+        data_compare=Car.objects.get_queryset().filter(city_mpg=index_car['city_mpg'], car_class = index_car['class'] , combination_mpg = index_car['combination_mpg'] , cylinders = index_car['cylinders'] , displacement = index_car['displacement'] , drive = index_car['drive'] , fuel_type=index_car['fuel_type'], highway_mpg = index_car['highway_mpg']  , make = index_car['make'],model=index_car['model'],transmission = index_car['transmission'],year=index_car['year'])
+        if(bool(data_compare)==False):
+          instance = Car(city_mpg=index_car['city_mpg'], car_class = index_car['class'] , combination_mpg = index_car['combination_mpg'] , cylinders = index_car['cylinders'] , displacement = index_car['displacement'] , drive = index_car['drive'] , fuel_type=index_car['fuel_type'], highway_mpg = index_car['highway_mpg']  , make = index_car['make'],model=index_car['model'],transmission = index_car['transmission'],year=index_car['year'],is_featured=False,is_searched=True,user_id = 1)
+          instance.save()
+        else:
+          Car.objects.filter(id=data_compare[0].id).update(is_searched=True)
+      showcar= Car.objects.get_queryset().filter(is_searched=True)
       return render(request, 'cars/index.html',{
       'cars':showcar
       })

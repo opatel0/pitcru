@@ -26,6 +26,7 @@ class Car(models.Model):
   transmission = models.CharField(max_length=20)
   year = models.IntegerField()
   is_featured = models.BooleanField()
+  is_searched = models.BooleanField()
   user = models.ForeignKey(User,on_delete=models.CASCADE)
 
   def __str__(self):
