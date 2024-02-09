@@ -15,3 +15,5 @@ urlpatterns = [
     path('delete_comment/<int:comment_id>/', views.deletecomment, name = 'delete_comment'),
     path('search/', views.search, name = 'search'),
 ]
+
+

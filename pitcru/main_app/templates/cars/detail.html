@@ -3,8 +3,8 @@
 {% block box %}
 vehicle details
 {% endblock %}
-
 {% block content %}
+<a href="{% url 'add_car' car.id}">Add Car to Profile</a>
 <h1>{{ car.year }} {{ car.make }} {{ car.model }}</h1>
 <h2>Car Data</h2>
 <p>Fuel: {{ car.fuel_type }}</p>

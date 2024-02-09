@@ -2,17 +2,37 @@ import requests
 from django.db import models
 from django.urls import reverse
 from django.contrib.auth.models import User
-
+import requests
+from bs4 import BeautifulSoup
+from django.contrib.postgres.fields import ArrayField  
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 car_list = [
 "Toyota", "Honda", "Ford", "Chevrolet", "Nissan", "Volkswagen", "Dodge", "Pontiac", "Oldsmobile", "Buick", "Plymouth", "Chrysler", "Mercedes-Benz", "BMW", "Mazda", "GMC", "Jeep", "Subaru", "Volvo", "Mitsubishi", "Mercury", "Cadillac", "Isuzu", "Lincoln", "Saab", "Jaguar", "Lexus", "Acura", "Alfa Romeo", "Audi", "Fiat", "Land Rover", "Porsche", "Suzuki", "Hyundai", "Kia", "Daihatsu", "Peugeot", "Renault", "Opel", "Lancia", "Citroën", "Triumph", "Datsun", "Infiniti", "Pontiac", "AMC", "Geo", "Plymouth", "Eagle"]
 
 year_list = [
 "1985", "1986", "1987", "1988", "1989", "1990", "1991", "1992", "1993", "1994", "1995", "1996", "1997", "1998", "1999", "2000", "2001", "2002", "2003", "2004", "2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023"]
-API_KEY = "sDR8LF/Y92EM5TcNfaQxVg==vKgPW0X07hL86rUt"
- 
+API_KEY = "byXNgBjF0W/zXArLsaN4NA==Xvxio9Kva6c75BFT"
+
+class Profile(models.Model):
+  user = models.OneToOneField(User, on_delete = models.CASCADE)
+  avatar = models.ImageField(default='default.jpg',upload_to='profile_images')
+  bio = models.TextField
+  favorite_cars = ArrayField(models.IntegerField(null=True),null=True)
+
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        Profile.objects.create(user=instance)
+
+@receiver(post_save, sender=User)
+def save_user_profile(sender, instance, **kwargs):
+    instance.profile.save()
+
 # Create your models here.
 class Car(models.Model):
+  car_image = models.CharField(max_length = 500)
   city_mpg = models.IntegerField()
   car_class = models.CharField(max_length=100)
   combination_mpg=models.IntegerField()
@@ -26,7 +46,8 @@ class Car(models.Model):
   transmission = models.CharField(max_length=20)
   year = models.IntegerField()
   is_featured = models.BooleanField()
-  user = models.ManyToManyField(User,related_name='owned_cars',on_delete=models.CASCADE)
+  is_searched = models.BooleanField()
+  user = models.ForeignKey(User,on_delete=models.CASCADE,default=1)
 
   def __str__(self):
     return f"{self.year} {self.make} {self.model} ({self.id})"
@@ -41,7 +62,7 @@ class Comment(models.Model):
   content = models.TextField(max_length = 500)
   date_created= models.DateField()
   last_updated= models.DateField()
-  user = models.ForeignKey(User,on_delete=models.CASCADE)
+  user = models.ForeignKey(User,on_delete=models.CASCADE,default=1)
   car = models.ForeignKey(
       Car,
       on_delete=models.CASCADE
@@ -57,18 +78,23 @@ def seed_db():
   for carmake in car_list:
     make= carmake
     print(make)
-    # for caryear in year_list:    
-    year = '1985'
+    for caryear in year_list:    
+      year = caryear
       # print(year)
-    api_url = f'https://api.api-ninjas.com/v1/cars?limit=1&make={make}&year={year}'
-    response = requests.get(api_url, headers={'X-Api-Key': API_KEY})
-    data = eval(response.text)
-    if len(data) > 0:
-      print(data)
-      for index_car in data:
-        instance = Car(city_mpg=-index_car['city_mpg'], car_class = index_car['class'] , combination_mpg = index_car['combination_mpg'] , cylinders = index_car['cylinders'] , displacement = index_car['displacement'] , drive = index_car['drive'] , fuel_type=index_car['fuel_type'], highway_mpg = index_car['highway_mpg']  , make = index_car['make'],model=index_car['model'],transmission = index_car['transmission'],year=index_car['year'],is_featured=False )
-        print(instance)
-        instance.save()
+      api_url = f'https://api.api-ninjas.com/v1/cars?limit=50&make={make}&year={year}'
+      response = requests.get(api_url, headers={'X-Api-Key': API_KEY})
+      data = eval(response.text)
+      if len(data) > 0:
+        print(data)
+        for index_car in data:
+          search_string=f'{index_car["model"]}+{index_car["year"]}+vehicle'
+          seed_image=findimage(search_string)
+          try:
+            instance = Car(car_image=seed_image,city_mpg=index_car['city_mpg'], car_class = index_car['class'] , combination_mpg = index_car['combination_mpg'] , cylinders = index_car['cylinders'] , displacement = index_car['displacement'] , drive = index_car['drive'] , fuel_type=index_car['fuel_type'], highway_mpg = index_car['highway_mpg']  , make = index_car['make'],model=index_car['model'],transmission = index_car['transmission'],year=index_car['year'],is_searched=False,is_featured=False )
+            print(instance)
+            instance.save()
+          except:
+            pass
 
   car_instances = [car for car in Car.objects.all()[:6]]
   
@@ -218,7 +244,10 @@ def seed_db():
     api_url = f'https://api.api-ninjas.com/v1/cars?limit=1&year={year}&make={make}&model={model}'
     response = requests.get(api_url, headers={'X-Api-Key': API_KEY})
     data = eval(response.text)
+    search_string=f'{data[0]["model"]}+{data[0]["year"]}+vehicle'
+    featured_image=findimage(search_string)
     car = Car(
+      car_image = featured_image,
       city_mpg = data[0]['city_mpg'],
       car_class = data[0]['class'],
       combination_mpg= data[0]['combination_mpg'],
@@ -231,8 +260,24 @@ def seed_db():
       model = data[0]['model'],
       transmission = data[0]['transmission'],
       year = data[0]['year'],
+      is_searched = False,
       is_featured = True
     )
     car.save()
     print(car)
   print("SEEDING PROCESS SUCCESSFUL")
+
+def getdata(url):  
+    r = requests.get(url)  
+    return r.text  
+def findimage(data):
+    htmldata = getdata(f"https://www.google.com/search?sca_esv=11b4f3157143913f&sxsrf=ACQVn0-1wFCM3bFrwEMwrb7h_z2St3_QNA:1707457507118&q={data}&tbm=isch&source=lnms&prmd=ivsnmbtz&sa=X&ved=2ahUKEwiv3bjxxp2EAxUVkmoFHZuXAC4Q0pQJegQIHhAB&cshid=1707457509902846&biw=1872&bih=958&dpr=1")  
+    soup = BeautifulSoup(htmldata, 'html.parser') 
+    count = 0 
+    seed_image = ''
+    for item in soup.find_all('img'): 
+      seed_image = item['src']
+      count += 1
+      if count == 2:
+        break
+    return(seed_image)

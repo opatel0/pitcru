@@ -58,8 +58,8 @@ def home(request):
   return render(request, 'homepage.html', {'cars': cars})
 
 def profile(request):
-  cars = request.user.car_set.all()
   comments = request.user.comment_set.all()
+  cars = Car.objects.get_queryset().filter(is_featured=True)
   return render(request, 'registration/profile.html', {'cars': cars,'comments':comments})
 
 def addcomment(request,car_id):
