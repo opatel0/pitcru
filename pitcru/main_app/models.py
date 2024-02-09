@@ -1,3 +1,4 @@
+import json
 import requests
 from django.db import models
 from django.urls import reverse
@@ -235,3 +236,8 @@ def seed_db():
     car.save()
     print(car)
   print("SEEDING PROCESS SUCCESSFUL")
+
+def seed_images():
+  api_url = "https://api.unsplash.com/search/photos?query=2023%maserati%mc20&client_id=1H8gNmuQC1ppjnPiIgTgiDWV-AF4vvkauqhw_SDp9Kg"
+  response = requests.get(api_url, headers={'Accept-Version': 'v1'})
+  return json.loads(response.text)
