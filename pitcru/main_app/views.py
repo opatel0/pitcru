@@ -43,14 +43,15 @@ def search(request):
         if(bool(data_compare)==False):
           search_string=f'{index_car["model"]}+{index_car["year"]}+vehicle'
           index_car['car_image']=findimage(search_string)
-          print(index_car['car_image'])
-          print('\n')
           instance = Car(car_image=index_car['car_image'], city_mpg=index_car['city_mpg'], car_class = index_car['class'] , combination_mpg = index_car['combination_mpg'] , cylinders = index_car['cylinders'] , displacement = index_car['displacement'] , drive = index_car['drive'] , fuel_type=index_car['fuel_type'], highway_mpg = index_car['highway_mpg']  , make = index_car['make'],model=index_car['model'],transmission = index_car['transmission'],year=index_car['year'],is_featured=False,is_searched=True,user_id = 1)
           instance.save()
         else:
-          search_string=f'{index_car["model"]}+{index_car["year"]}+vehicle'
-          index_car['car_image']=findimage(search_string)
-          Car.objects.filter(id=data_compare[0].id).update(car_image = index_car['car_image'],is_searched=True)
+          if(len(data_compare[0].car_image)==0):
+            search_string=f'{index_car["model"]}+{index_car["year"]}+vehicle'
+            index_car['car_image']=findimage(search_string)
+            Car.objects.filter(id=data_compare[0].id).update(car_image = index_car['car_image'],is_searched=True)
+          else:   
+            Car.objects.filter(id=data_compare[0].id).update(is_searched=True)          
       showcar= Car.objects.get_queryset().filter(is_searched=True)
       return render(request, 'cars/index.html',{
       'cars':showcar
