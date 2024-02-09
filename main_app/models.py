@@ -26,7 +26,7 @@ class Car(models.Model):
   transmission = models.CharField(max_length=20)
   year = models.IntegerField()
   is_featured = models.BooleanField()
-  user = models.ForeignKey(User,on_delete=models.CASCADE)
+  user = models.ForeignKey(User,on_delete=models.CASCADE, default=1)
 
   def __str__(self):
     return f"{self.year} {self.make} {self.model} ({self.id})"
@@ -40,7 +40,7 @@ class Comment(models.Model):
   content = models.TextField(max_length = 500)
   date_created= models.DateField()
   last_updated= models.DateField()
-  user = models.ForeignKey(User,on_delete=models.CASCADE)
+  user = models.ForeignKey(User,on_delete=models.CASCADE, default=1)
   car = models.ForeignKey(
       Car,
       on_delete=models.CASCADE

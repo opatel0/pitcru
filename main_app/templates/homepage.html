@@ -5,8 +5,8 @@ home
 {% endblock %}
 
 {% block content %}
-  <section class="featured-cars">
     <h2>Featured Cars</h2>
+    <div id="car-box">
     <ul class="car-grid">
       {% for car in cars %}
         <li>
@@ -21,15 +21,15 @@ home
         </li>
       {% endfor %}
     </ul>
-  </section>
+    </div>
   <form action="/search/" method="POST">
     {% csrf_token %}
-    <label for = 'year'>Year (1985-2023)</Label>
-    <input type = 'number' id = 'year' name = 'year' min = 1985 max = 2023 value="2023">
-    <label for = 'make'>Make</Label>
-    <input type = 'text' id = 'make' name = 'make'>
-    <label for = 'model'>Model</Label>
-    <input type = 'text' id = 'model' name = 'model'>
+    <label  class="lbl" for = 'year'>Year (1985-2023)</Label>
+    <input class="txt" type = 'number' id = 'year' name = 'year' min = 1985 max = 2023 value="2023">
+    <label class="lbl" for = 'make'>Make</Label>
+    <input  class="txt" type = 'text' id = 'make' name = 'make'>
+    <label class="lbl" for = 'model'>Model</Label>
+    <input  class="txt" type = 'text' id = 'model' name = 'model'>
     <input type="submit" class="btn" value="Search">
-</form>
+  </form>
 {% endblock %}

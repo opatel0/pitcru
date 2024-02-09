@@ -6,6 +6,14 @@
     font-family: 'stoNe';
     src: url('fonts/stoNe.woff') format('woff');
 }
+@font-face {
+    font-family: 'Horsepower-Regular';
+    src: url('fonts/Horsepower-Regular.woff') format('woff');
+}
+@font-face {
+    font-family: 'Mars';
+    src: url('fonts/Mars.woff') format('woff');
+}
 * {
     box-sizing: border-box;
     margin: 0;
@@ -37,25 +45,63 @@ body {
 
 .navbit {
     
-    
+    font-family: 'Horsepower-Regular';
+    font-size: 20px;
+   font-weight: bold;
     height: 0%;
     overflow: hidden;
     border-right: 1px solid black;
     padding-right: 50px;
     animation: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
 }
 
 .navbit:last-child {
+    font-weight: normal;
+    text-transform: none;
     border: none;
     font-family: 'stoNe';
     font-size: 25px;
 }
+
 @keyframes bitload {
     0% {
         height: 0%;
     }
     100% {
-        height: 50%;
+        height: 70%;
+    }
+}
+
+a {
+    color: black;
+    cursor: pointer;
+    animation-direction: forwards;
+    
+}
+
+a:hover{
+    animation: linkhover 1.5s linear infinite;
+}
+
+@keyframes linkhover {
+    0% {
+        color: black;
+    }
+    25% {
+        color: yellowgreen
+    }
+    50% {
+        color: white;
+    }
+    75% {
+        color: yellowgreen
+    }
+    100% {
+        color: black;
     }
 }
 
@@ -231,6 +277,24 @@ body {
     }
 }
 
+#car-box {
+    overflow: scroll;
+    border: 1px solid black;
+    width: 80%;
+    height: 70%;
+    display: flex;
+    justify-self: center;
+    align-self: center;
+    margin-bottom: 20px;
+}
+
+.car-grid {
+    list-style-type: none;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
 
 #textscroll {
     color: white;
@@ -262,3 +326,36 @@ body {
     }
 }
 
+
+::-webkit-scrollbar {
+    width: 20px;
+}
+::-webkit-scrollbar-track {
+    box-shadow: none;
+    border: none;
+}
+::-webkit-scrollbar-thumb {
+    background-color: black;
+    border-radius: 10px;
+}
+::-webkit-scrollbar-corner{
+    background-color: none;
+}
+
+.lbl {
+    font-family: 'Horsepower-Regular';
+    text-transform: uppercase;
+}
+
+.txt {
+    background-color: transparent;
+    color: white;
+    border: 1px solid black
+}
+
+.btn {
+    color: white;
+    background-color: black;
+    border: 1px solid white;
+    cursor: pointer;
+}
