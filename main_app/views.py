@@ -7,6 +7,7 @@ from django.http import Http404
 from .forms import CommentForm
 from datetime import datetime
 import requests
+from bs4 import BeautifulSoup  
 API_KEY = "sDR8LF/Y92EM5TcNfaQxVg==vKgPW0X07hL86rUt"
 
 # Create your views here.
@@ -26,11 +27,98 @@ def cars_detail(request, car_id):
 def about(request):
     return render(request, 'about.html')
 
+def showsearch(request):
+    return render(request, 'advanced_search.html')
+
+def search(request):
+    data=request.POST
+    api_string = make_search_string(data)
+    Car.objects.filter(is_searched=True).update(is_searched=False)
+    try:
+      api_url = f'https://api.api-ninjas.com/v1/cars?limit=50&{api_string}'
+      response = requests.get(api_url, headers={'X-Api-Key': API_KEY})
+      api_result = eval(response.text)
+      for index_car in api_result:
+        data_compare=Car.objects.get_queryset().filter(city_mpg=index_car['city_mpg'], car_class = index_car['class'] , combination_mpg = index_car['combination_mpg'] , cylinders = index_car['cylinders'] , displacement = index_car['displacement'] , drive = index_car['drive'] , fuel_type=index_car['fuel_type'], highway_mpg = index_car['highway_mpg']  , make = index_car['make'],model=index_car['model'],transmission = index_car['transmission'],year=index_car['year'])
+        if(bool(data_compare)==False):
+          search_string=f'{index_car["model"]}+{index_car["year"]}+vehicle'
+          index_car['car_image']=findimage(search_string)
+          instance = Car(car_image=index_car['car_image'], city_mpg=index_car['city_mpg'], car_class = index_car['class'] , combination_mpg = index_car['combination_mpg'] , cylinders = index_car['cylinders'] , displacement = index_car['displacement'] , drive = index_car['drive'] , fuel_type=index_car['fuel_type'], highway_mpg = index_car['highway_mpg']  , make = index_car['make'],model=index_car['model'],transmission = index_car['transmission'],year=index_car['year'],is_featured=False,is_searched=True,user_id = 1)
+          instance.save()
+        else:
+          if(len(data_compare[0].car_image)==0):
+            search_string=f'{index_car["model"]}+{index_car["year"]}+vehicle'
+            index_car['car_image']=findimage(search_string)
+            Car.objects.filter(id=data_compare[0].id).update(car_image = index_car['car_image'],is_searched=True)
+          else:   
+            Car.objects.filter(id=data_compare[0].id).update(is_searched=True)          
+      showcar= Car.objects.get_queryset().filter(is_searched=True)
+      return render(request, 'cars/index.html',{
+      'cars':showcar
+      })
+    except:
+      return redirect('/')
+
+def make_search_string(postdata):
+    year = postdata['year']
+    make = postdata['make']
+    model = postdata['model']
+    min_combo_mpg = postdata['min_combo_mpg']
+    min_city_mpg = postdata['min_city_mpg']
+    min_hwy_mpg = postdata['min_hwy_mpg']
+    cylinders = postdata['cylinder']
+    transmission = postdata['transmission']
+    fuel_type = postdata['fuel_type']
+    drive = postdata['drive']
+    if year != '':
+      year_string = f'year={year}&'
+    else:
+      year_string = ''
+    if model != '':
+      model_string = f'model={model}&'
+    else:
+      model_string = ''
+    if make != '':
+      make_string = f'model={make}&'
+    else:
+      make_string = ''
+    if min_combo_mpg != '':
+      min_combo_mpg_string = f'min_combo_mpg={min_combo_mpg}&'
+    else:
+      min_combo_mpg_string = ''
+    if min_city_mpg != '':
+      min_city_mpg_string = f'min_city_mpg={min_city_mpg}&'
+    else:
+      min_city_mpg_string = ''
+    if min_hwy_mpg != '':
+      min_hwy_mpg_string = f'min_hwy_mpg={min_hwy_mpg}&'
+    else:
+      min_hwy_mpg_string = ''
+    if cylinders != '':
+      cylinders_string = f'cylinders={cylinders}&'
+    else:
+      cylinders_string = ''
+    if transmission != '':
+      transmission_string = f'transmission={transmission}&'
+    else:
+      transmission_string = ''
+    if fuel_type != '':
+      fuel_type_string= f'fuel_type={fuel_type}&'
+    else:
+      fuel_type_string = ''
+    if drive != '':
+      drive_string = f'drive={drive}&'
+    else:
+      drive_string = ''
+      
+    return_string = f'{year_string}{make_string}{model_string}{min_combo_mpg_string}{min_city_mpg_string}{min_hwy_mpg_string}{cylinders_string}{transmission_string}{fuel_type_string}{drive_string}'
+    return return_string
+
 def cars(request):
-    index_cars = Car.objects.all()
-    return render(request, 'cars/index.html',{
-    'cars':index_cars
-    })
+  index_cars = Car.objects.all()
+  return render(request, 'cars/index.html',{
+  'cars':index_cars
+  })
 
 def home(request):
   cars = Car.objects.get_queryset().filter(is_featured=True)
@@ -60,13 +148,9 @@ def editcommentshow(request,comment_id):
   })
 
 def editcomment(request,comment_id):
-    form = CommentForm(request.POST)
-    if form.is_valid():
-      print(form)
-      new_comment = form.save(commit=False)
-      print(new_comment)
-      new_comment.last_updated = datetime.today()
-      request.user.comment_set.filter(id=comment_id).UPDATE(new_comment)
+    data=request.POST
+    print(data)
+    request.user.comment_set.filter(id=comment_id).update(title=data['Title'],content=data['Content'],name=data['Name'],last_updated=datetime.today())
     return redirect('profile')
 
 def deletecomment(request,comment_id):
@@ -93,25 +177,17 @@ def signup(request):
   context = {'form': form, 'error_message': error_message}
   return render(request, 'registration/signup.html', context) 
 
-def search(request):
-    data=request.POST
-    year = data['year']
-    make = data['make']
-    model = data['model']
-    if year != '':
-      yearstring = f'year={year}&'
-    else:
-       yearstring = ''
-    if make != '':
-       makestring = f'make={make}&'
-    else:
-       makestring = ''
-    if model != '':
-      modelstring = f'model={model}&'
-    else:
-       modelstring = ''
-    api_url = f'https://api.api-ninjas.com/v1/cars?limit=1&{yearstring}{makestring}{modelstring}'
-    response = requests.get(api_url, headers={'X-Api-Key': API_KEY})
-    cardata = eval(response.text)
-    print(cardata)
-    return redirect('cars')
+
+def getdata(url):  
+    r = requests.get(url)  
+    return r.text  
+def findimage(data):
+    htmldata = getdata(f"https://www.google.com/search?sca_esv=11b4f3157143913f&sxsrf=ACQVn0-1wFCM3bFrwEMwrb7h_z2St3_QNA:1707457507118&q={data}&tbm=isch&source=lnms&prmd=ivsnmbtz&sa=X&ved=2ahUKEwiv3bjxxp2EAxUVkmoFHZuXAC4Q0pQJegQIHhAB&cshid=1707457509902846&biw=1872&bih=958&dpr=1") 
+    soup = BeautifulSoup(htmldata, 'html.parser') 
+    count = 0 
+    for item in soup.find_all('img'): 
+      image = item['src']
+      count += 1
+      if count == 2:
+        break
+    return(image)

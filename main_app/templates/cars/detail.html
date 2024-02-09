@@ -5,6 +5,7 @@ vehicle details
 {% endblock %}
 
 {% block content %}
+<img src={{car.car_image}}>
 <h1>{{ car.year }} {{ car.make }} {{ car.model }}</h1>
 <h2>Car Data</h2>
 <p>Fuel: {{ car.fuel_type }}</p>
