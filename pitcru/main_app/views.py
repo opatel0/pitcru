@@ -7,6 +7,7 @@ from django.http import Http404
 from .forms import CommentForm
 from datetime import datetime
 import requests
+from bs4 import BeautifulSoup  
 API_KEY = "sDR8LF/Y92EM5TcNfaQxVg==vKgPW0X07hL86rUt"
 
 # Create your views here.
@@ -40,10 +41,16 @@ def search(request):
       for index_car in api_result:
         data_compare=Car.objects.get_queryset().filter(city_mpg=index_car['city_mpg'], car_class = index_car['class'] , combination_mpg = index_car['combination_mpg'] , cylinders = index_car['cylinders'] , displacement = index_car['displacement'] , drive = index_car['drive'] , fuel_type=index_car['fuel_type'], highway_mpg = index_car['highway_mpg']  , make = index_car['make'],model=index_car['model'],transmission = index_car['transmission'],year=index_car['year'])
         if(bool(data_compare)==False):
-          instance = Car(city_mpg=index_car['city_mpg'], car_class = index_car['class'] , combination_mpg = index_car['combination_mpg'] , cylinders = index_car['cylinders'] , displacement = index_car['displacement'] , drive = index_car['drive'] , fuel_type=index_car['fuel_type'], highway_mpg = index_car['highway_mpg']  , make = index_car['make'],model=index_car['model'],transmission = index_car['transmission'],year=index_car['year'],is_featured=False,is_searched=True,user_id = 1)
+          search_string=f'{index_car["model"]}+{index_car["year"]}+vehicle'
+          index_car['car_image']=findimage(search_string)
+          print(index_car['car_image'])
+          print('\n')
+          instance = Car(car_image=index_car['car_image'], city_mpg=index_car['city_mpg'], car_class = index_car['class'] , combination_mpg = index_car['combination_mpg'] , cylinders = index_car['cylinders'] , displacement = index_car['displacement'] , drive = index_car['drive'] , fuel_type=index_car['fuel_type'], highway_mpg = index_car['highway_mpg']  , make = index_car['make'],model=index_car['model'],transmission = index_car['transmission'],year=index_car['year'],is_featured=False,is_searched=True,user_id = 1)
           instance.save()
         else:
-          Car.objects.filter(id=data_compare[0].id).update(is_searched=True)
+          search_string=f'{index_car["model"]}+{index_car["year"]}+vehicle'
+          index_car['car_image']=findimage(search_string)
+          Car.objects.filter(id=data_compare[0].id).update(car_image = index_car['car_image'],is_searched=True)
       showcar= Car.objects.get_queryset().filter(is_searched=True)
       return render(request, 'cars/index.html',{
       'cars':showcar
@@ -168,3 +175,18 @@ def signup(request):
   form = UserCreationForm() 
   context = {'form': form, 'error_message': error_message}
   return render(request, 'registration/signup.html', context) 
+
+
+def getdata(url):  
+    r = requests.get(url)  
+    return r.text  
+def findimage(data):
+    htmldata = getdata(f"https://www.google.com/search?sca_esv=11b4f3157143913f&sxsrf=ACQVn0-1wFCM3bFrwEMwrb7h_z2St3_QNA:1707457507118&q={data}&tbm=isch&source=lnms&prmd=ivsnmbtz&sa=X&ved=2ahUKEwiv3bjxxp2EAxUVkmoFHZuXAC4Q0pQJegQIHhAB&cshid=1707457509902846&biw=1872&bih=958&dpr=1") 
+    soup = BeautifulSoup(htmldata, 'html.parser') 
+    count = 0 
+    for item in soup.find_all('img'): 
+      image = item['src']
+      count += 1
+      if count == 2:
+        break
+    return(image)

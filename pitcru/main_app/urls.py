@@ -15,3 +15,18 @@ urlpatterns = [
     path('delete_comment/<int:comment_id>/', views.deletecomment, name = 'delete_comment'),
     path('search/', views.search, name = 'search'),
 ]
+
+
+
+
+# import requests  
+# from bs4 import BeautifulSoup  
+    
+# def getdata(url):  
+#     r = requests.get(url)  
+#     return r.text  
+    
+# htmldata = getdata("https://www.google.com/search?sca_esv=3c7692eee43ce5fe&sxsrf=ACQVn0-rx1SXJuF7BdDN4c3qsYt6CrFQSQ:1707447430762&q=silverado&tbm=isch&source=lnms&prmd=isvnmbtz&sa=X&ved=2ahUKEwjy79SsoZ2EAxVuke4BHVRmDNIQ0pQJegQIKhAB&biw=1872&bih=958&dpr=1")  
+# soup = BeautifulSoup(htmldata, 'html.parser')  
+# for item in soup.find_all('img'): 
+#     print(item['src'])
