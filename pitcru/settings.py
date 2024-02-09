@@ -125,7 +125,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
-STATIC_ROOT = '../main_app/static'
 
 LOGIN_REDIRECT_URL = '/cars/'
 
@@ -134,3 +133,5 @@ LOGIN_REDIRECT_URL = '/cars/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+import django_on_heroku
+django_on_heroku.settings(locals())
