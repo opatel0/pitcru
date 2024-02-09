@@ -31,27 +31,83 @@ def showsearch(request):
 
 def search(request):
     data=request.POST
-    year = data['year']
-    model = data['model']
+    api_string = make_search_string(data)
+    try:
+      api_url = f'https://api.api-ninjas.com/v1/cars?limit=1&{api_string}'
+      response = requests.get(api_url, headers={'X-Api-Key': API_KEY})
+      index_car = eval(response.text)
+      print(index_car)
+      data_compare=Car.objects.get_queryset().filter(model=index_car[0]["model"])
+      if(bool(data_compare)==False):
+        instance = Car(city_mpg=index_car[0]['city_mpg'], car_class = index_car[0]['class'] , combination_mpg = index_car[0]['combination_mpg'] , cylinders = index_car[0]['cylinders'] , displacement = index_car[0]['displacement'] , drive = index_car[0]['drive'] , fuel_type=index_car[0]['fuel_type'], highway_mpg = index_car[0]['highway_mpg']  , make = index_car[0]['make'],model=index_car[0]['model'],transmission = index_car[0]['transmission'],year=index_car[0]['year'],is_featured=False,user_id = 1)
+        instance.save()
+      showcar=Car.objects.get_queryset().filter(model=index_car[0]["model"])
+      return render(request, 'cars/index.html',{
+      'cars':showcar
+      })
+    except:
+      return redirect('/')
+
+def make_search_string(postdata):
+    year = postdata['year']
+    make = postdata['make']
+    model = postdata['model']
+    min_combo_mpg = postdata['min_combo_mpg']
+    min_city_mpg = postdata['min_city_mpg']
+    min_hwy_mpg = postdata['min_hwy_mpg']
+    cylinders = postdata['cylinder']
+    transmission = postdata['transmission']
+    fuel_type = postdata['fuel_type']
+    drive = postdata['drive']
     if year != '':
-      yearstring = f'year={year}&'
+      year_string = f'year={year}&'
     else:
-       yearstring = ''
+      year_string = ''
     if model != '':
-      modelstring = f'model={model}&'
+      model_string = f'model={model}&'
     else:
-       modelstring = ''
-    api_url = f'https://api.api-ninjas.com/v1/cars?limit=1&{yearstring}{modelstring}'
-    response = requests.get(api_url, headers={'X-Api-Key': API_KEY})
-    cardata = eval(response.text)
-    print(cardata)
-    return redirect('cars')  
+      model_string = ''
+    if make != '':
+      make_string = f'model={make}&'
+    else:
+      make_string = ''
+    if min_combo_mpg != '':
+      min_combo_mpg_string = f'min_combo_mpg={min_combo_mpg}&'
+    else:
+      min_combo_mpg_string = ''
+    if min_city_mpg != '':
+      min_city_mpg_string = f'min_city_mpg={min_city_mpg}&'
+    else:
+      min_city_mpg_string = ''
+    if min_hwy_mpg != '':
+      min_hwy_mpg_string = f'min_hwy_mpg={min_hwy_mpg}&'
+    else:
+      min_hwy_mpg_string = ''
+    if cylinders != '':
+      cylinders_string = f'cylinders={cylinders}&'
+    else:
+      cylinders_string = ''
+    if transmission != '':
+      transmission_string = f'transmission={transmission}&'
+    else:
+      transmission_string = ''
+    if fuel_type != '':
+      fuel_type_string= f'fuel_type={fuel_type}&'
+    else:
+      fuel_type_string = ''
+    if drive != '':
+      drive_string = f'drive={drive}&'
+    else:
+      drive_string = ''
+      
+    return_string = f'{year_string}{make_string}{model_string}{min_combo_mpg_string}{min_city_mpg_string}{min_hwy_mpg_string}{cylinders_string}{transmission_string}{fuel_type_string}{drive_string}'
+    return return_string
 
 def cars(request):
-    index_cars = Car.objects.all()
-    return render(request, 'cars/index.html',{
-    'cars':index_cars
-    })
+  index_cars = Car.objects.all()
+  return render(request, 'cars/index.html',{
+  'cars':index_cars
+  })
 
 def home(request):
   cars = Car.objects.get_queryset().filter(is_featured=True)
@@ -109,26 +165,3 @@ def signup(request):
   form = UserCreationForm() 
   context = {'form': form, 'error_message': error_message}
   return render(request, 'registration/signup.html', context) 
-
-def search(request):
-    data=request.POST
-    year = data['year']
-    make = data['make']
-    model = data['model']
-    if year != '':
-      yearstring = f'year={year}&'
-    else:
-       yearstring = ''
-    if make != '':
-       makestring = f'make={make}&'
-    else:
-       makestring = ''
-    if model != '':
-      modelstring = f'model={model}&'
-    else:
-       modelstring = ''
-    api_url = f'https://api.api-ninjas.com/v1/cars?limit=1&{yearstring}{makestring}{modelstring}'
-    response = requests.get(api_url, headers={'X-Api-Key': API_KEY})
-    cardata = eval(response.text)
-    print(cardata)
-    return redirect('cars')
