@@ -33,7 +33,7 @@ We implement a feature branch workflow, the rules of which include: <br>
 	<li>
 		<details>
 			<summary>Review assigned ticket from Trello board</summary>
-			<br><img src="./media/move_ticket.png" width="500px"><br>
+			<br><img src="./main_app/static/media/move_ticket.png" width="500px"><br>
 		</details>
 	</li>
 	<li>Navigate to local repo in terminal</li>
@@ -43,7 +43,7 @@ We implement a feature branch workflow, the rules of which include: <br>
 			First, ensure your main branch is checked out by simply running the following <pre>git checkout main</pre>
 			Next, sync your local main branch to the remote main branch by running the following <pre>git pull</pre>
 			Next, output the status of your repo by running the following <pre>git status</pre>
-			Finally, observe the output and check that your branch is up to date by confirming the following text appears in your git status output <br><img src="./media/git_status.png" width="500px"><br>
+			Finally, observe the output and check that your branch is up to date by confirming the following text appears in your git status output <br><img src="./main_app/static/media/git_status.png" width="500px"><br>
 		</details>
 	</li>
 	<li>
@@ -52,10 +52,10 @@ We implement a feature branch workflow, the rules of which include: <br>
 			Run the following with no square brackets where new_branch_name is a descriptive name that correlates to your assigned Trello ticket<pre>git branch [new_branch_name]</pre>
 			Set your local working branch to your new feature branch by running the following <pre>git checkout [new_branch_name]</pre>
 			List all your branches created for this repo by running the following <pre>git branch</pre>
-			Confirm your new feature branch is selected by ensuring it appears in the output list and has an asterisk next to it <br><img src="./media/branches.png" width="500px"> <br>
+			Confirm your new feature branch is selected by ensuring it appears in the output list and has an asterisk next to it <br><img src="./main_app/static/media/branches.png" width="500px"> <br>
 			Set your upstream branch by running the following <pre>git push -u origin <[new_branch_name]</pre>
 			Push new branch to Github by running the following <pre>git push --set-upstream origin [new_branch_name]</pre>
-			Check remote repository and assure new branch now appears in the list <br><img src="./media/remote.png" width="500px"><br>
+			Check remote repository and assure new branch now appears in the list <br><img src="./main_app/static/media/remote.png" width="500px"><br>
 			<strong>CONTACT GIT GUY IMMEDIATELY IF YOU RUN INTO ISSUES YOU DO NOT KNOW HOW TO RESOLVE</strong>
 		</details>
 	<li>
@@ -75,9 +75,9 @@ We implement a feature branch workflow, the rules of which include: <br>
 		<details>
 			<summary>Submit Pull Request and Notify Reviewers</summary>
 			Run the following <pre>git log</pre>
-			Compare log output to remote branch commit history and ensure the most recent commit IDs match <img src="./media/compare_commits.png" width="500px"> <br>
+			Compare log output to remote branch commit history and ensure the most recent commit IDs match <img src="./main_app/static/media/compare_commits.png" width="500px"> <br>
 			If remote repo not up to date, refer to step 5 to stage, commit, and push changes.<br>
-			Once local and remote branches are sync'd, submit pull request <br> <img src="./media/pull_request.png" width="500px"> <br>
+			Once local and remote branches are sync'd, submit pull request <br> <img src="./main_app/static/media/pull_request.png" width="500px"> <br>
 			Notify reviewer(s) via Discord group chat that PR is ready for review <br>
 			<strong>CONTACT GIT GUY IMMEDIATELY IF YOU RUN INTO ISSUES YOU DO NOT KNOW HOW TO RESOLVE</strong>
 		</details>
