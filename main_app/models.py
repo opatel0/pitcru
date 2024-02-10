@@ -4,6 +4,9 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 import requests
 from bs4 import BeautifulSoup  
+from django.contrib.postgres.fields import ArrayField  
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 car_list = [
 "Toyota", "Honda", "Ford", "Chevrolet", "Nissan", "Volkswagen", "Dodge", "Pontiac", "Oldsmobile", "Buick", "Plymouth", "Chrysler", "Mercedes-Benz", "BMW", "Mazda", "GMC", "Jeep", "Subaru", "Volvo", "Mitsubishi", "Mercury", "Cadillac", "Isuzu", "Lincoln", "Saab", "Jaguar", "Lexus", "Acura", "Alfa Romeo", "Audi", "Fiat", "Land Rover", "Porsche", "Suzuki", "Hyundai", "Kia", "Daihatsu", "Peugeot", "Renault", "Opel", "Lancia", "Citroën", "Triumph", "Datsun", "Infiniti", "Pontiac", "AMC", "Geo", "Plymouth", "Eagle"]
@@ -12,6 +15,20 @@ year_list = [
 "1985", "1986", "1987", "1988", "1989", "1990", "1991", "1992", "1993", "1994", "1995", "1996", "1997", "1998", "1999", "2000", "2001", "2002", "2003", "2004", "2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023"]
 API_KEY = "byXNgBjF0W/zXArLsaN4NA==Xvxio9Kva6c75BFT"
   
+class Profile(models.Model):
+  user = models.OneToOneField(User, on_delete = models.CASCADE)
+  favorite_cars = ArrayField(models.IntegerField(null=True),null=True)
+
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+  if created:
+      Profile.objects.create(user=instance)
+
+@receiver(post_save, sender=User)
+def save_user_profile(sender, instance, **kwargs):
+    instance.profile.save()
+
+
 # Create your models here.
 class Car(models.Model):
   car_image = models.CharField(max_length = 500)
@@ -27,8 +44,9 @@ class Car(models.Model):
   model = models.CharField(max_length=100)
   transmission = models.CharField(max_length=20)
   year = models.IntegerField()
-  is_featured = models.BooleanField()
+  is_featured = models.BooleanField(default=False)
   is_searched = models.BooleanField(default=False)
+  is_favorite = models.BooleanField(default=False)
   user = models.ForeignKey(User,on_delete=models.CASCADE, default=1)
 
   def __str__(self):
@@ -58,10 +76,10 @@ class Comment(models.Model):
 
 def seed_db():
   for carmake in car_list:
-    make= carmake
+    make = carmake
     for caryear in year_list:    
       year = caryear
-      api_url = f'https://api.api-ninjas.com/v1/cars?limit=10&make={make}&year={year}'
+      api_url = f'https://api.api-ninjas.com/v1/cars?limit=1&make={make}&year={year}'
       response = requests.get(api_url, headers={'X-Api-Key': API_KEY})
       data = eval(response.text)
       if len(data) > 0:

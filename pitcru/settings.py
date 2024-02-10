@@ -21,10 +21,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ['SECRET_KEY']
+SECRET_KEY = 'django-insecure-fid4t)8u4s1c#@@b%mpy1!(9!6+sp_0^=wy1a2*yan*vr6etqk'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True if os.environ['MODE'] == 'dev' else False
+DEBUG = True
 
 # Supported URL domains
 ALLOWED_HOSTS = [
@@ -82,11 +82,7 @@ WSGI_APPLICATION = 'pitcru.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'neondb',
-        'USER': 'ojasforstuff',
-        'PASSWORD': os.environ['DB_PASSWORD'],
-        'HOST': 'ep-weathered-firefly-a4m2z24h.us-east-1.aws.neon.tech',
-        'PORT': '5432'
+        'NAME': 'pitcru',
     }
 }
 
@@ -133,5 +129,3 @@ LOGIN_REDIRECT_URL = '/cars/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-import django_on_heroku
-django_on_heroku.settings(locals())

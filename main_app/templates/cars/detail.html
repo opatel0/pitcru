@@ -5,6 +5,8 @@ vehicle details
 {% endblock %}
 
 {% block content %}
+<a href="{% url 'add_car' car.id%}">Add Car to Profile</a>
+<a href="{% url 'delete_car' car.id%}">Delete Car From Profile</a>
 <img src={{car.car_image}}>
 <h1>{{ car.year }} {{ car.make }} {{ car.model }}</h1>
 <h2>Car Data</h2>
