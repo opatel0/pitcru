@@ -28,8 +28,8 @@ class Car(models.Model):
   transmission = models.CharField(max_length=20)
   year = models.IntegerField()
   is_featured = models.BooleanField()
-  is_searched = models.BooleanField()
-  user = models.ForeignKey(User,on_delete=models.CASCADE)
+  is_searched = models.BooleanField(default=False)
+  user = models.ForeignKey(User,on_delete=models.CASCADE, default=1)
 
   def __str__(self):
     return f"{self.year} {self.make} {self.model} ({self.id})"
@@ -44,7 +44,7 @@ class Comment(models.Model):
   content = models.TextField(max_length = 500)
   date_created= models.DateField()
   last_updated= models.DateField()
-  user = models.ForeignKey(User,on_delete=models.CASCADE)
+  user = models.ForeignKey(User,on_delete=models.CASCADE, default=1)
   car = models.ForeignKey(
       Car,
       on_delete=models.CASCADE
@@ -61,7 +61,7 @@ def seed_db():
     make= carmake
     for caryear in year_list:    
       year = caryear
-      api_url = f'https://api.api-ninjas.com/v1/cars?limit=50&make={make}&year={year}'
+      api_url = f'https://api.api-ninjas.com/v1/cars?limit=10&make={make}&year={year}'
       response = requests.get(api_url, headers={'X-Api-Key': API_KEY})
       data = eval(response.text)
       if len(data) > 0:
@@ -260,6 +260,3 @@ def findimage(data):
       if count == 2:
         break
     return(seed_image)
-
-def delete_super_user():
-  User.objects.filter(is_superuser=True).delete()
