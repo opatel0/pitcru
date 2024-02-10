@@ -145,6 +145,7 @@ def home(request):
   return render(request, 'homepage.html', {'cars': cars})
 
 def profile(request):
+  cars= Car.objects.get_queryset().filter(is_favorite=True).update(is_favorite=False)
   if request.user.profile.favorite_cars is not None:
     for favorite_id in request.user.profile.favorite_cars:
       Car.objects.filter(id=str(favorite_id)).update(is_favorite=True)
