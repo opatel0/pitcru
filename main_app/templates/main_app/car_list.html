@@ -5,13 +5,18 @@ Car Index
 {% endblock %}
 
 {% block content %}
-    <h1>Car List</h1>
+    <div class="heading-box" style="width: 80%;"><h2 class="heading">Car List</h2></div>
+    <div class ='car-box' style="width: 80%; height: 90%;">
+    <div class="car-grid">
     {% for car in object_list %}
-    <div class = 'car'>
+    <li>
         <a href="/cars/{{car.id}}">
-            <h1>Model: {{car.model}}</h1>
-        </a>
-        <img src={{car.car_image}}>
+                <div class="car-link">
+            <h3>Model: {{car.model}}<h3>
+            </div>
+            </a>
+        <img  class="car-image" src={{car.car_image}}>
+        <div class="car-data">
         <p>City MPG: {{car.city_mpg}}</p>
         <p>Class: {{car.car_class}}</p>
         <p>Combo MPG: {{car.combination_mpg}}</p>
@@ -23,8 +28,11 @@ Car Index
         <p>Make: {{car.make}}</p>
         <p>Transmission: {{car.transmission}}</p>
         <p>Year: {{car.year}}</p>     
-    </div>
+        </div>
+        </li>
     {% endfor %}
+    </div>
+    </div>
     <div class="pagination">
         <span class="step-links">
             {% if page_obj.has_previous %}
