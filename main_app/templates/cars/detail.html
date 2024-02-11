@@ -1,13 +1,23 @@
 {% extends 'base.html' %}
 
+{% block title %}
+Car Details
+{% endblock%}
 {% block box %}
 vehicle details
 {% endblock %}
 
 {% block content %}
+<a href="{% url 'add_car' car.id%}">Add Car to Profile</a>
+<a href="{% url 'delete_car' car.id%}">Delete Car From Profile</a>
+<div class="rowflex" style=" width: 100%; height: 100%;">
+  <div class="columnflex" >
+<div class="heading-box"><h2 class="heading">Car Data</h2></div>
+<div class="car-box">
+  <div class="car-grid">
+  <li>
 <img src={{car.car_image}}>
 <h1>{{ car.year }} {{ car.make }} {{ car.model }}</h1>
-<h2>Car Data</h2>
 <p>Fuel: {{ car.fuel_type }}</p>
 <p>Drive Transmission: {{ car.drive_transmission }}</p>
 <p>Cylinders: {{ car.cylinders }}</p>
@@ -15,17 +25,37 @@ vehicle details
 <p>Average Mileage: {{ car.average_mileage_min }} to {{ car.average_mileage_max }} MPG</p>
 <p>City Mileage: {{ car.city_mileage_min }} to {{ car.city_mileage_max }} MPG</p>
 <p>Highway Mileage: {{ car.highway_mileage_min }} to {{ car.highway_mileage_max }} MPG</p>
-<h3>Comments</h3>
+</li>
+</div>
+</div>
+</div>
+<div class="columnflex" >
+<div class="heading-box" style="width: 70%;"><h2 class="heading">Comments</h2></div>
+<div class="messages-box" style="width: 70%; height: 50%; margin-bottom: 0px;">
 {% for comment in comments %}
-<h4>{{ comment.title }}</h4>
-<p>Commentor: {{ comment.name }}</p>
+<div class="comment-sticker"><p class="name-title">{{comment.name}} | {{comment.title}}<p></div>
+  <div class="comment-box" style="width: 80%; height: 80%;">
 <p>Commented on: {{ comment.date }}</p>
-<p>{{ comment.content }}</p>
+<div class="comment-content">{{ comment.content }}</div>
+</div>
 {% endfor %}
+</div>
+<div class="heading-box" style="width: 50%;"><h2 class="heading">Leave A Comment</h2></div>
+
+<div class="form-box" style="width: 50%;">
+  <div class="form-top"><p class="form-tag">Form</p></div>
 <form action="{% url 'comment' car.id %}" method="POST">
-    {% csrf_token %}
+  <section class="form-options">
+  <div class="lbl">{% csrf_token %}</div>
     <!-- Render the inputs -->
-    {{ comment_form.as_p }}
+   <div class="lbl"> {{ comment_form.as_p }}</div>
+</section>
+<div class="form-end">
+  <p class="crsr">></p>
     <input type="submit" class="btn" value="Add Comment">
+    </div>
   </form>
+  </div>
+  </div>
+  </div>
 {% endblock %}

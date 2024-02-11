@@ -11,8 +11,12 @@
     src: url('fonts/Horsepower-Regular.woff') format('woff');
 }
 @font-face {
-    font-family: 'Mars';
-    src: url('fonts/Mars.woff') format('woff');
+    font-family: 'SLIG-Wide';
+    src: url('fonts/SLIG-Wide.woff') format('woff');
+}
+@font-face {
+    font-family: 'Generic Mobile System';
+    src: url('fonts/GenericMobileSystem.woff') format('woff');
 }
 * {
     box-sizing: border-box;
@@ -48,7 +52,7 @@ body {
     font-family: 'Horsepower-Regular';
     font-size: 20px;
    font-weight: bold;
-    height: 0%;
+    height: 70%;
     overflow: hidden;
     border-right: 1px solid black;
     padding-right: 50px;
@@ -80,7 +84,7 @@ a {
     color: black;
     cursor: pointer;
     animation-direction: forwards;
-    
+    text-decoration: none;
 }
 
 a:hover{
@@ -115,7 +119,7 @@ a:hover{
 #loadbox {
     animation: lineload .45s linear  forwards;
     overflow: hidden;
-    width: 0%;
+    width: 95%;
    
    
 }
@@ -157,38 +161,59 @@ a:hover{
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    justify-self: center;
-    align-self: center;
-}
-
-#rowflex {
-    height: 100%;
-    width: 100%;
-    display: flex;
+   
    
 }
 
-
-
-#textbox1 {
-    width: 500px;
-    height: 500px;
-    border-radius: 10px;
+.rowflex {
+    height: 80%;
+    width: 100%;
     display: flex;
-    justify-content: left;
-    padding: 5px;
-    align-self: right;
-    justify-self: left;
+   
+   align-items: center;
+   justify-content: center;
+}
+.columnflex {
+    height: 100%;
+    width: 50%;
+    display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
 }
 
+
+
+.textbox {
+    width: 50%;
+    height: 50%;
+    border-radius: 10px;
+    display: flex;
+    text-align: left;
+}
+
+#pit-logo {
+    font-family: 'stoNe';
+    font-size: 120px;
+    animation: bitload .2s linear .7s forwards;
+    height: 0%;
+    width: 40%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+
 #pitfoot {
-    width: 0%;
+    width: 100%;
     height: 20%;
     z-index: -1;
     display: flex;
-    justify-content: left;
+    
     align-items: center;
-    padding-left: 100px;
+    padding-left: 150px;
     padding-top: 40px;
 }
 
@@ -277,7 +302,7 @@ a:hover{
     }
 }
 
-#car-box {
+.car-box {
     overflow: scroll;
     border: 1px solid black;
     width: 80%;
@@ -294,6 +319,96 @@ a:hover{
     justify-content: space-around;
     align-items: center;
 }
+
+.car-grid > li {
+    margin: 10px;
+}
+
+.car-image {
+    border: 2px solid rgb(188, 197, 183);
+    width: 200px;
+    height: 150px;
+}
+
+.featured-heading {
+    text-align: center;
+    background-color:  rgb(81, 86, 79);
+    color: white;
+    border: 2px solid rgb(188, 197, 183);
+    font-family: 'Generic Mobile System';
+}
+
+.heading-box {
+    align-self: left;
+    width: 80%;
+    
+
+}
+
+.heading {
+    border: 1px solid black;
+    border-bottom: 0px;
+    font-family: 'SLIG-Wide';
+    
+}
+
+.form-box {
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-top {
+ width: 100%;
+ margin-bottom: 10px;
+ display: flex;
+ align-items: left;
+ justify-content: left;   
+}
+.form-tag {
+    font-family: 'Generic Mobile System';
+    border: 1px solid black;
+    border-width: 0px 1px 1px 0px;
+}
+
+.form-options {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 15px;
+}
+
+
+.car-data {
+    font-family: 'Generic Mobile System';
+    font-size: 13px;
+    border: 2px solid black;
+    background-color: rgb(188, 197, 183);
+    height: 150px;
+    width: 200px;
+
+}
+
+.car-link {
+    width: 200px;
+    height: 50px;
+    font-family: 'Generic Mobile System';
+    font-size: 13px;
+    border: 2px solid  rgb(188, 197, 183);
+    background-color: rgb(81, 86, 79);
+    text-decoration: none;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.car-link:hover {
+    animation: linkhover 1.5s linear infinite;
+    background-color: rgb(120, 131, 120);
+}
+
 
 
 #textscroll {
@@ -332,18 +447,22 @@ a:hover{
 }
 ::-webkit-scrollbar-track {
     box-shadow: none;
-    border: none;
+    border-top: 1px solid black;
+    
+    
 }
 ::-webkit-scrollbar-thumb {
-    background-color: black;
+    background-color: rgb(142, 54, 54);
     border-radius: 10px;
+    
 }
 ::-webkit-scrollbar-corner{
     background-color: none;
+    border-top: 1px solid black;
 }
 
 .lbl {
-    font-family: 'Horsepower-Regular';
+    font-family: 'Generic Mobile System';
     text-transform: uppercase;
 }
 
@@ -354,8 +473,141 @@ a:hover{
 }
 
 .btn {
-    color: white;
-    background-color: black;
-    border: 1px solid white;
+    color: black;
+    background-color: rgb(201, 215, 201);
+    border: 2px solid rgb(0, 0, 0);
+    border-width: 2px 0px 0px 0px;
+    border-left: 15px solid black;
     cursor: pointer;
+    
+    min-width: 80px;
+    width: fit-content;
+    font-family: 'Generic Mobile System';
+}
+
+.btn:hover {
+    animation: linkhover 1.5s linear infinite;
+    background-color: rgb(120, 131, 120);
+}
+
+.form-end {
+    display: flex;
+    justify-content: right;
+    
+    width: 100%;
+    margin-top: 10px;
+}
+
+.crsr {
+    font-weight: bold;
+    position: relative;
+    right: 0px;
+    font-family: 'Generic Mobile System';
+    animation: cursor-point .5s linear infinite;
+}
+
+@keyframes cursor-point {
+    0% {
+        right: 0px;
+    }
+    1% {
+        right: 5px;
+    }
+    50% {
+        right: 3px;
+    }
+    100% {
+        right: 0px;
+    }
+}
+
+.messages-box {
+    overflow: scroll;
+    border: 1px solid black;
+    width: 90%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-self: center;
+    align-self: center;
+    margin-bottom: 20px;
+}
+
+.comment-box {
+    border: 2px solid rgb(211, 220, 231);
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(60, 55, 69);
+    color: white;
+    font-family: 'Generic Mobile System';
+    min-height: 100px;
+}
+
+.comment-sticker {
+    align-self: left;
+    width: 80%;
+    
+
+}
+
+.name-title {
+    border: 2px solid rgb(211, 220, 231);
+    border-bottom: 2px solid rgb(60, 55, 69);
+    font-family: 'Generic Mobile System';
+    color: white;
+    background-color: rgb(60, 55, 69);
+    width: fit-content;
+    z-index: 2;
+    position: relative;
+    top: 2px;
+}
+.date-tag {
+    background-color: yellow;
+    width: 50px;
+    z-index: 3;
+}
+
+.comment-top {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+}
+
+.comment-lid {
+    border: 1px solid white;
+    border-radius: 3px;
+    border-top: 0px;
+    padding: 2px;
+}
+
+.comment-content {
+    padding: 10px;
+}
+
+.comment-options {
+    width: 80%;
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 30px;
+}
+.last-update, .date-made {
+    align-self: left;
+    justify-self: right;
+    background-color: white;
+    border: 1px solid black;
+    font-family: 'Generic Mobile System';
+}
+.edit-comment, .delete-comment {
+    align-self: right;
+    justify-self: right;
+    color: black;
+    background-color: rgb(201, 215, 201);
+    border: 2px solid rgb(0, 0, 0);
+    border-width: 2px 0px 0px 0px;
+    border-left: 15px solid black;
+    cursor: pointer;
+    
+    width: 80px;
+    font-family: 'Generic Mobile System';
 }

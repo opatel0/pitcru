@@ -1,13 +1,27 @@
 {% extends 'base.html' %}
+{% block title %}
+Log In
+{% endblock %}
+{% block box %}
+log in
+{% endblock%}
+
 {% block content %}
 
-<h1>Log In</h1>
+<div class="heading-box" style="width: 50%;"><h2 class="heading">Log In</h2></div>
 
+<div class="form-box" style="width: 50%;">
+  <div class="form-top"><p class="form-tag">Form</p></div>
 <form action="{% url 'login' %}" method="POST">
-  {% csrf_token %}
-  {{ form.as_p }}
+  <section class="form-options">
+  <div class="lbl">{% csrf_token %}</div>
+  <div class="lbl">{{ form.as_p }}</div>
   <input type="hidden" name="next" value="{{ next }}">
+  </section>
+  <div class="form-end">
+    <p class="crsr">></p>
   <button type="submit" class="btn">Log In</button>
+  </div>
 </form>
 
 {% endblock %}
