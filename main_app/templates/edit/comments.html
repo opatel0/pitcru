@@ -1,10 +1,17 @@
 {% extends 'base.html' %}
 
+{% block title%}
+Edit Comment
+{% endblock %}
 {% block box %}
-Edit Comments
+edit comment
 {% endblock %}
 
 {% block content %}
+<div class="heading-box" style="width: 70%;"><h2 class="heading">Edit Comment</h2></div>
+<div class="form-box" style="width: 70%;">
+<div class="form-top"><p class="form-tag">Form</p></div>
+<div class="form-options">
 <form action="/edit_comment/{{comment.id}}/" method="POST">
   {% csrf_token %}
   <label for = "Name">Name</Label>
@@ -13,6 +20,11 @@ Edit Comments
   <input type = 'text' id = 'Title' name = 'Title' value = {{comment.title}}>
   <label for = "Content">Content</Label>
   <input type = 'text' id = 'Content' name = 'Content' value = {{comment.content}}>
-  <input type="submit" class="btn" value="Update Comment">
+  </div>
+  <div class="form-end">
+  <div class="crsr"><p>></p></div>
+  <input type="submit" class="btn" value="Update Comment" style="width:fit-content">
+  </div>
 </form>
+</div>
 {% endblock %}
