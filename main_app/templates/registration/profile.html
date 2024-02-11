@@ -1,17 +1,23 @@
 {% extends 'base.html' %}
-
+{% block title%}
+Your Profile
+{% endblock %}
 {% block box %}
-Car Index
+profile
 {% endblock %}
 
 {% block content %}
-<div class = personalcars>
-<h1>Personal Car List</h1>
+
+<div class="heading-box" style="width: 70%;"><h2 class="heading">Personal Car List</h2></div>
+<div class="car-box" style="width: 70%; height: 50%; margin-bottom: 0px;">
     {% for car in cars %}
-    <div class = 'car'>
+    <div class = 'car' style="margin: 10px;">
         <a href="/cars/{{car.id}}">
-            <h1>Model: {{car.model}}</h1>
+            <div class="car-link">
+            <h3>{{car.model}}</h3>
+            </div>
         </a>
+        <div class="car-data">
         <p>City MPG: {{car.city_mpg}}</p>
         <p>Class: {{car.car_class}}</p>
         <p>Combo MPG: {{car.comination_mpg}}</p>
@@ -23,24 +29,33 @@ Car Index
         <p>Make: {{car.make}}</p>
         <p>Transmission: {{car.transmission}}</p>
         <p>Year: {{car.year}}</p>     
+        </div>
     </div>
     {% endfor %}
-</div>
-<div class = personalcomments></div>
-    <h1>Personal Comment List</h1>
+    </div>
+
+
+    <div class="heading-box" style="width: 70%;"><h2 class="heading">Personal Comment List</h2></div>
+    <div class="messages-box" style="width: 70%; height: 50%; margin-bottom: 0px;">
     {% for comment in comments %}
-    <div class = 'comment'>
-            <h1>Title: {{comment.title}}</h1>
-            <h1>Date Create: {{comment.date_created}}</h1>
-            <h1>Last Update: {{comment.last_updated}}</h1>
-            name = {{comment.name}}
-            content = {{comment.content}}
-            date = {{comment.date}}
-            car =  {{comment.car}}
+    
+            <div class="comment-sticker"><p class="name-title">{{comment.name}} | {{comment.title}}<p></div>
+                <div class="comment-box" style="width: 80%; height: 80%;">
+                <div class="comment-top"><p class="comment-lid">{{comment.car}}<p></div>
+                <div class="comment-content">
+                {{comment.content}}
+                </div>
+                <div class="comment-end"><p class="date-tag">{{comment.date}}</p></div>
+                </div>
+            
+    <div class="comment-options">
+    <p class="last-update">Last Update: {{comment.last_updated}}</p>
+    <p class="date-made">Date Created: {{comment.date_created}}</p>
+    <a  class="edit-comment" href="/edit_show_comment/{{comment.id}}">Edit</a>
+    <a  class="delete-comment" href="/delete_comment/{{comment.id}}">Delete</a>
     </div>
-    <a href="/edit_show_comment/{{comment.id}}">Edit</a>
-    <a href="/delete_comment/{{comment.id}}">Delete</a>
-  </form>
+  
     {% endfor %}
+    
 </div>
 {% endblock %}

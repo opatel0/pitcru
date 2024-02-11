@@ -16,6 +16,7 @@ for (let x = 0; x < chars.length; x++) {
 
 const navparts = document.querySelectorAll('.navbit');
 for (let x = 0; x < (navparts.length); x++) {
+    navparts[x].style.height = '0%';
     navparts[x].style.animation  = `bitload .2s linear ${.4 + (x * 0.05)}s forwards`;
 }
 
