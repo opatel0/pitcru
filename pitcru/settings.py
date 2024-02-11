@@ -82,10 +82,10 @@ WSGI_APPLICATION = 'pitcru.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'neondb',
+        'NAME': 'test',
         'USER': 'ojasforstuff',
         'PASSWORD': os.environ['DB_PASSWORD'],
-        'HOST': 'ep-weathered-firefly-a4m2z24h.us-east-1.aws.neon.tech',
+        'HOST': 'ep-red-credit-a45gy1ys.us-east-1.aws.neon.tech',
         'PORT': '5432'
     }
 }

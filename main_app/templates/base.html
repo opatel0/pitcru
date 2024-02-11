@@ -14,7 +14,7 @@
       <ul id="navlist">
     <li class="navbit" ><a href="{% url 'about' %}">About</a></li>
     <li class="navbit" ><a href="{% url 'home' %}">Home</a></li>
-    <li class="navbit" ><a href="{% url 'cars' %}">Car List</a></li>
+    <li class="navbit" ><a href="{% url 'cars_index' %}">Car List</a></li>
       {% if user.is_authenticated %}
       <li class="navbit" ><a href="{% url 'logout' %}">Log Out</a></li>
       <li class="navbit" ><a href="{% url 'profile' %}">Profile</a></li>
