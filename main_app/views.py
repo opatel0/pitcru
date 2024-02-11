@@ -7,7 +7,8 @@ from django.http import Http404
 from .forms import CommentForm
 from datetime import datetime
 import requests
-from bs4 import BeautifulSoup  
+from bs4 import BeautifulSoup
+from django.contrib.auth.models import User  
 API_KEY = "sDR8LF/Y92EM5TcNfaQxVg==vKgPW0X07hL86rUt"
 
 # Create your views here.
@@ -23,7 +24,26 @@ def cars_detail(request, car_id):
         'comments': comments,
         'comment_form': comment_form
     })
-  
+def add_car(request, car_id):
+    dontadd=0
+    user_object = User.objects.get(id=request.user.id)
+    if user_object.profile.favorite_cars is None:
+      user_object.profile.favorite_cars = []
+    for id in user_object.profile.favorite_cars:
+      if id == car_id:
+        dontadd = 1
+    if dontadd == 0:
+      user_object.profile.favorite_cars.append(int(car_id))
+      user_object.save()
+    return redirect('details', car_id=car_id)
+
+def delete_car(request, car_id):
+    user_object = User.objects.get(id=request.user.id)
+    user_object.profile.favorite_cars.remove(int(car_id))
+    user_object.save()
+    Car.objects.filter(id=car_id).update(is_favorite=False)
+    return redirect('details', car_id=car_id)
+
 def about(request):
     return render(request, 'about.html')
 
@@ -125,7 +145,11 @@ def home(request):
   return render(request, 'homepage.html', {'cars': cars})
 
 def profile(request):
-  cars = request.user.car_set.all()
+  cars= Car.objects.get_queryset().filter(is_favorite=True).update(is_favorite=False)
+  if request.user.profile.favorite_cars is not None:
+    for favorite_id in request.user.profile.favorite_cars:
+      Car.objects.filter(id=str(favorite_id)).update(is_favorite=True)
+  cars= Car.objects.get_queryset().filter(is_favorite=True)
   comments = request.user.comment_set.all()
   return render(request, 'registration/profile.html', {'cars': cars,'comments':comments})
 

@@ -8,6 +8,8 @@ vehicle details
 {% endblock %}
 
 {% block content %}
+<a href="{% url 'add_car' car.id%}">Add Car to Profile</a>
+<a href="{% url 'delete_car' car.id%}">Delete Car From Profile</a>
 <div class="rowflex" style=" width: 100%; height: 100%;">
   <div class="columnflex" >
 <div class="heading-box"><h2 class="heading">Car Data</h2></div>
