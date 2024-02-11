@@ -75,11 +75,11 @@ class Comment(models.Model):
       ordering = ['-date_created']
 
 def seed_db():
-  for carmake in car_list:
+  for carmake in ['toyota']:
     make = carmake
-    for caryear in year_list:    
+    for caryear in ['1985']:    
       year = caryear
-      api_url = f'https://api.api-ninjas.com/v1/cars?limit=1&make={make}&year={year}'
+      api_url = f'https://api.api-ninjas.com/v1/cars?limit=50&make={make}&year={year}'
       response = requests.get(api_url, headers={'X-Api-Key': API_KEY})
       data = eval(response.text)
       if len(data) > 0:
@@ -87,7 +87,7 @@ def seed_db():
           search_string=f'{index_car["model"]}+{index_car["year"]}+vehicle'
           seed_image=findimage(search_string)
           try:
-            instance = Car(car_image=seed_image,city_mpg=index_car['city_mpg'], car_class = index_car['class'] , combination_mpg = index_car['combination_mpg'] , cylinders = index_car['cylinders'] , displacement = index_car['displacement'] , drive = index_car['drive'] , fuel_type=index_car['fuel_type'], highway_mpg = index_car['highway_mpg']  , make = index_car['make'],model=index_car['model'],transmission = index_car['transmission'],year=index_car['year'],is_searched=False,is_featured=False )
+            instance = Car(car_image=seed_image,city_mpg=index_car['city_mpg'], car_class = index_car['class'] , combination_mpg = index_car['combination_mpg'] , cylinders = index_car['cylinders'] , displacement = index_car['displacement'] , drive = index_car['drive'] , fuel_type=index_car['fuel_type'], highway_mpg = index_car['highway_mpg']  , make = index_car['make'],model=index_car['model'],transmission = index_car['transmission'],year=index_car['year'],is_searched=False,is_featured=False, is_favorite=False )
             instance.save()
             print(instance)
           except:
@@ -258,7 +258,8 @@ def seed_db():
       transmission = data[0]['transmission'],
       year = data[0]['year'],
       is_searched = False,
-      is_featured = True
+      is_featured = True,
+      is_favorite = False
     )
     car.save()
     print(car)
