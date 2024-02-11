@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block box %}
+Car Index
+{% endblock %}
+
+{% block content %}
+    <h1>Car List</h1>
+    {% for car in object_list %}
+    <div class = 'car'>
+        <a href="/cars/{{car.id}}">
+            <h1>Model: {{car.model}}</h1>
+        </a>
+        <img src={{car.car_image}}>
+        <p>City MPG: {{car.city_mpg}}</p>
+        <p>Class: {{car.car_class}}</p>
+        <p>Combo MPG: {{car.combination_mpg}}</p>
+        <p>Cylinders: {{car.cylinders}}</p>
+        <p>Displacement: {{car.displacement}}</p>
+        <p>Drive Type: {{car.drive}}</p>
+        <p>Fuel Type: {{car.fuel_type}}</p>
+        <p>Highway MPG: {{car.highway_mpg}}</p>
+        <p>Make: {{car.make}}</p>
+        <p>Transmission: {{car.transmission}}</p>
+        <p>Year: {{car.year}}</p>     
+    </div>
+    {% endfor %}
+    <div class="pagination">
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+                <a href="?page=1">&laquo; first</a>
+                <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+            {% endif %}
+    
+            <span class="current">
+                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+            </span>
+    
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">next</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+{% endblock %}

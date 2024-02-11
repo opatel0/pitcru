@@ -3,12 +3,17 @@ from .models import Car, Comment
 from django.contrib.auth import logout, login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
+from django.views.generic import ListView
 from django.http import Http404
 from .forms import CommentForm
 from datetime import datetime
 import requests
 from bs4 import BeautifulSoup  
 API_KEY = "sDR8LF/Y92EM5TcNfaQxVg==vKgPW0X07hL86rUt"
+
+class CarListView(ListView):
+  paginate_by = 12
+  model = Car
 
 # Create your views here.
 def cars_detail(request, car_id):
