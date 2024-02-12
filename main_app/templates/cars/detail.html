@@ -38,7 +38,6 @@ vehicle details
     
   <div class="comment-sticker"><p class="name-title">{{comment.name}} | {{comment.title}}<p></div>
       <div class="comment-box" style="width: 80%; height: 80%;">
-      <div class="comment-top"><p class="comment-lid">{{comment.car}}<p></div>
       <div class="comment-content">
       {{comment.content}}
       </div>
@@ -52,6 +51,7 @@ vehicle details
 
 {% endfor %}
 </div>
+{% if user.is_authenticated %}
 <div class="heading-box" style="width: 50%;"><h2 class="heading">Leave A Comment</h2></div>
 
 <div class="form-box" style="width: 50%;">
@@ -68,6 +68,7 @@ vehicle details
     </div>
   </form>
   </div>
+{% endif %}
   </div>
   </div>
 {% endblock %}

@@ -17,10 +17,12 @@ home
             <!-- car image -->
           </figure>
           <figcaption class="featured-info">
+            <a href="/cars/{{car.id}}">
             <div>
             <img  class="car-image" src={{car.car_image}}>
             <h3 class="featured-heading">{{ car.year }} {{ car.make }} <br> {{ car.model }}</h3>
             </div>
+            </a>
           </figcaption>
         </li>
       {% endfor %}
