@@ -1,22 +1,34 @@
 # PiTCRU
 <details>
 <summary>Screenshots</summary>
+
+  <h3>Home Page</h3>  <img src="https://i.imgur.com/mIN62S4.png" width="700"> 
+   <h3>About</h3>  <img src="https://i.imgur.com/fTCN2As.png" width="700"> 
+   <h3>Sign Up Form</h3>  <img src="https://i.imgur.com/f1CPCpe.png" width="700"> 
+   <h3>Login Page</h3>  <img src="https://i.imgur.com/XEEsCI5.png" width="700"> 
+   <h3>Car Index</h3>  <img src="https://i.imgur.com/XrRzPcY.png" width="700"> 
+  
 </details>
 <details>
 <summary>List of Technologies Used</summary>
-</details>
-<details>
-<summary>Installation Instructions Used</summary>
+API Ninjas, bs4 (Beautiful Soup) , Django, Postgres, Neon, HTML, Python, CSS, Heroku, Python, Javascript, HTML, CSS, PostgreSQL, Django, 
 </details>
 <details>
 <summary>Unsolved Problems and Development Hurdles</summary>
+Thankfully there were only a few obstacles we encountered mainly with our static assets and the forms pages, which still remains unsolved. Other obstacles that we overcame were synching out database and api content on the screen.
 </details>
 <details>
 <summary>Prep Materials</summary>
-![Pitch Deck](https://docs.google.com/presentation/d/1qpX5GW_Bafp2oBqJjIH_7ISXsjz8pVqTMe-U6UNrceg/edit#slide=id.p)<br>
-Trello Board<br>
-Wireframes<br>
-ERD
+<h1>Pitch Deck</h1>
+https://docs.google.com/presentation/d/1qpX5GW_Bafp2oBqJjIH_7ISXsjz8pVqTMe-U6UNrceg/edit#slide=id.p<br>
+<h1>Trello Board</h1>https://trello.com/invite/b/ZwKB3WGc/ATTI825093ffdfe208138f2e6222500dcc912ADDC12A/pitcru<br>
+<h1>Wireframes</h1>
+<img src="https://i.imgur.com/ol7G6B6.png" width="700"> 
+<img src="https://i.imgur.com/8QMKZi6.png" width="700"> 
+<img src="https://i.imgur.com/j6GPgFs.png" width="700"> 
+<img src="https://i.imgur.com/wGtDWAW.png" width="700"> 
+<br>
+<h1>ERD</h1><img src="https://i.imgur.com/NdtdEqh.png" width="700"> 
 </details>
 
 <details>
@@ -86,7 +98,7 @@ We implement a feature branch workflow, the rules of which include: <br>
 <strong>NOTE:</strong> All discussion regarding PRs must be logged in PR comments. If voice call is necessary to resolve certain topics, one of the attendees of that conversation must include notes from the conversation as a comment in the PR. Merge conflicts should also be handled in the Github PR UI, and should always be handled by at least two people.</li>
 </details>
 <details>
-	<summary>How we Seed</summary>
+	<summary>How we Seed(Installation Instructions)</summary>
 	<h2>Follow the following steps</h2>
 	<ul>
 		<li>First make sure there isnt any changes that havent been migrated<pre>python3 manage.py makemigrations</pre>
