@@ -110,4 +110,11 @@ We implement a feature branch workflow, the rules of which include: <br>
 		<li>Import the main app models folder <pre>from main_app.models import *</pre>
 		<li>Run the seeding function <pre>seed_db()</pre>
 	<ul>
-</deatils>
+</details>
+<details>
+	<summary>Next Steps</summary>
+	<li>Actualize racing game car selection screen design for details page</li>
+	<li>Refactor backend to implement industry standard API such as KBB</li>
+	<li>Resolve issues with animation on pages with forms</li>
+	<li>Shorten form on homepage and expose button to toggle between simple and advanced search</li>
+</details>
